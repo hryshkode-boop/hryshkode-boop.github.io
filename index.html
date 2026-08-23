@@ -164,9 +164,26 @@ section{padding:clamp(56px,8vw,92px) 0;}
 .gcard:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
 .gcard:hover::before{opacity:1;}
 
-/* ============ ABOUT ============ */
-.about-grid{display:grid;grid-template-columns:1fr;gap:20px;}
-@media (min-width:720px){ .about-grid{grid-template-columns:repeat(4,1fr);} }
+/* ============ ABOUT / RESUME CARD ============ */
+.resume-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(18px,3vw,26px) clamp(20px,3.4vw,30px);box-shadow:var(--shadow);margin:28px 0 24px;}
+.resume-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.resume-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.resume-head-info{flex:1;min-width:200px;}
+.resume-head-info h3{font-size:1.3rem;margin:0 0 4px;}
+.resume-role{font-size:.9rem;color:var(--accent);font-weight:600;margin:0 0 4px;}
+.resume-contact{font-size:.85rem;color:var(--ink-faint);margin:0;}
+.resume-blocks{display:flex;flex-direction:column;gap:20px;}
+.resume-blocks .gcard h4{display:flex;align-items:center;gap:10px;font-size:1.05rem;margin:0 0 16px;}
+.resume-blocks .gcard h4 .icon{color:var(--accent);width:20px;height:20px;}
+.resume-exp-item{padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--line);}
+.resume-exp-item:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none;}
+.resume-exp-year{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:4px;font-variant-numeric:tabular-nums;}
+.resume-exp-meta{font-size:11.5px;font-weight:600;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px;}
+.resume-exp-item h5{font-size:1.02rem;margin:0 0 6px;font-weight:800;}
+.resume-exp-item ul{margin:8px 0 0;padding-left:18px;color:var(--ink-soft);font-size:.92rem;}
+.resume-exp-item li{margin-bottom:4px;}
+.resume-exp-item .entry-body{color:var(--ink-soft);font-size:.92rem;margin:6px 0 0;}
+@media (max-width:560px){ .resume-head{flex-direction:column;align-items:flex-start;} }
 
 /* ============ EXPERIENCE / TIMELINE ============ */
 .timeline{position:relative;display:flex;flex-direction:column;}
@@ -175,7 +192,7 @@ section{padding:clamp(56px,8vw,92px) 0;}
 .trow:last-child{padding-bottom:0;}
 .tnode{position:relative;width:32px;height:32px;border-radius:50%;background:var(--surface);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px var(--bg);}
 .tnode::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--gold);}
-.tbody{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,3vw,36px);align-items:center;}
+.tbody{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,3vw,36px);align-items:start;}
 .tyear{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px;font-variant-numeric:tabular-nums;}
 .tbody h3{font-size:1.28rem;margin-bottom:6px;}
 .tmeta{font-size:12px;font-weight:600;color:var(--ink-faint);margin-bottom:10px;text-transform:uppercase;letter-spacing:.03em;}
@@ -183,7 +200,7 @@ section{padding:clamp(56px,8vw,92px) 0;}
 .tbody li{margin-bottom:5px;}
 .tbody .entry-body{color:var(--ink-soft);font-size:.96rem;margin:8px 0 0;}
 .tmedia{position:relative;aspect-ratio:4/3;}
-.tmedia img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);-webkit-mask-image:radial-gradient(ellipse 74% 80% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 74% 80% at 50% 50%,#000 58%,transparent 100%);}
+.tmedia img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 22%);mask-image:linear-gradient(to right,transparent 0%,#000 22%);}
 .tmedia:hover img{transform:scale(1.05);}
 .tmedia.mcarousel{cursor:pointer;}
 .tdots{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);display:flex;gap:5px;z-index:2;}
@@ -289,7 +306,6 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
 }
 @media (max-width:640px){
   .hero-stats{grid-template-columns:repeat(2,1fr);}
-  .about-grid{grid-template-columns:repeat(2,1fr);}
   .cv-strip{flex-direction:column;align-items:flex-start;}
 }
 </style>
@@ -351,9 +367,33 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
       <div class="sec-head reveal">
         <p class="eyebrow" data-i18n="about.eyebrow">About</p>
         <h2 data-i18n="about.title">Precision, reliability, two decades of practice</h2>
-        <p class="lede" data-i18n="about.lead" style="margin-top:14px;">About lead</p>
       </div>
-      <div class="about-grid stagger reveal" id="aboutStats"></div>
+
+      <div class="resume-card reveal">
+        <div class="resume-head">
+          <img class="resume-avatar" src="img/hero.jpg" alt="">
+          <div class="resume-head-info">
+            <h3 data-i18n="name">Viacheslav Hryshko</h3>
+            <p class="resume-role" data-i18n="hero.roleLine">IT Systems Electronics Technician</p>
+            <p class="resume-contact" id="resumeContact"></p>
+          </div>
+          <a class="btn btn-primary btn-sm magnetic" id="resumeDownload" href="#" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+            <span data-i18n-text="hero.ctaResume">Download CV</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="resume-blocks">
+        <div class="gcard reveal">
+          <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14 15.5 9M2.5 14a9.5 9.5 0 0 1 19 0"/></svg><span data-i18n="about.profileTitle">Profile</span></h4>
+          <p data-i18n="about.lead" style="color:var(--ink-soft);margin:0;">About lead</p>
+        </div>
+        <div class="gcard reveal">
+          <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.6 4.6L3 17l4 4 6.1-6.1a4 4 0 0 0 4.6-5.6l-2.8 2.8-2-2Z"/></svg><span data-i18n="about.expTitle">Work experience</span></h4>
+          <div id="resumeExpList"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -367,17 +407,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
     </div>
   </section>
 
-  <section id="skills">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="eyebrow" data-i18n="skills.eyebrow">Skills</p>
-        <h2 data-i18n="skills.title">What I work with day to day</h2>
-      </div>
-      <div class="skills-grid stagger reveal" id="skillsGrid"></div>
-    </div>
-  </section>
-
-  <section id="portfolio" class="sec-alt">
+  <section id="portfolio">
     <div class="wrap">
       <div class="sec-head reveal">
         <p class="eyebrow" data-i18n="portfolio.eyebrow">Portfolio</p>
@@ -386,16 +416,12 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
       </div>
       <div class="cap-grid stagger reveal" id="capGrid"></div>
       <p class="portfolio-note reveal" data-i18n="portfolio.note">Note about real before/after coming soon.</p>
-    </div>
-  </section>
 
-  <section id="education">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="eyebrow" data-i18n="education.eyebrow">Education</p>
-        <h2 data-i18n="education.title">Formal qualifications</h2>
+      <div class="sec-head reveal" style="margin-top:56px;">
+        <p class="eyebrow" data-i18n="skills.eyebrow">Skills</p>
+        <h2 data-i18n="skills.title">What I work with day to day</h2>
       </div>
-      <div class="edu-grid stagger reveal" id="eduGrid"></div>
+      <div class="skills-grid stagger reveal" id="skillsGrid"></div>
     </div>
   </section>
 
@@ -531,6 +557,8 @@ const DICT = {
     "eyebrow": "Про мене",
     "title": "Точність, надійність і два десятиліття практики",
     "lead": "Систематичний аналіз несправностей і методичний підхід до складних технічних збоїв. Висока особиста відповідальність і самостійна робота навіть в умовах дефіциту часу.",
+    "profileTitle": "Профіль",
+    "expTitle": "Досвід роботи",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Років ремонту ноутбуків і ПК" },
       { "icon": "cpu", "stat": "20–40", "label": "Пристроїв на місяць у ремонті" },
@@ -571,7 +599,7 @@ const DICT = {
           "Побудова й технічне адміністрування корпоративного інтернет-магазину (OpenCart)",
           "Сервісний обсяг — до 100 пристроїв на місяць"
         ],
-        "img": ["workshop", "notecomp2", "notecomp3"]
+        "img": ["notecomp3", "workshop", "notecomp2"]
       },
       {
         "year": "1997–1999",
@@ -680,6 +708,8 @@ const DICT = {
     "eyebrow": "About",
     "title": "Precision, reliability, two decades of practice",
     "lead": "Systematic fault analysis and a methodical approach to complex technical issues. High degree of personal responsibility and independent work even under time pressure.",
+    "profileTitle": "Profile",
+    "expTitle": "Work experience",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Years repairing laptops & PCs" },
       { "icon": "cpu", "stat": "20–40", "label": "Devices repaired per month" },
@@ -720,7 +750,7 @@ const DICT = {
           "Concept, development and technical administration of the company's online shop (OpenCart)",
           "Service volume up to 100 devices per month"
         ],
-        "img": ["workshop", "notecomp2", "notecomp3"]
+        "img": ["notecomp3", "workshop", "notecomp2"]
       },
       {
         "year": "1997–1999",
@@ -829,6 +859,8 @@ const DICT = {
     "eyebrow": "Über mich",
     "title": "Präzision, Zuverlässigkeit, zwei Jahrzehnte Praxis",
     "lead": "Systematische Fehleranalyse und methodisches Vorgehen bei komplexen technischen Störungen. Hohe Eigenverantwortung und selbstständige Arbeitsweise auch unter Zeitdruck.",
+    "profileTitle": "Profil",
+    "expTitle": "Berufserfahrung",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Jahre Notebook- & PC-Reparatur" },
       { "icon": "cpu", "stat": "20–40", "label": "Geräte pro Monat repariert" },
@@ -869,7 +901,7 @@ const DICT = {
           "Konzeption, Aufbau und technische Administration des firmeneigenen Onlineshops (OpenCart)",
           "Servicevolumen bis zu 100 Geräte pro Monat"
         ],
-        "img": ["workshop", "notecomp2", "notecomp3"]
+        "img": ["notecomp3", "workshop", "notecomp2"]
       },
       {
         "year": "1997–1999",
@@ -1024,12 +1056,15 @@ function applyStatic(lang){
   // Hero stats
   document.getElementById('heroStats').innerHTML = d.hero.stats.map(s=>`<div class="hero-stat"><b>${s.v}</b><span>${s.k}</span></div>`).join('');
 
-  // About stats (icon cards)
-  document.getElementById('aboutStats').innerHTML = d.about.points.map(p=>`
-    <div class="gcard">
-      <div class="cap-icon">${ICONS[p.icon]}</div>
-      <h4 style="font-size:1.4rem;font-weight:800;margin:0 0 4px;">${p.stat}</h4>
-      <p style="font-size:.85rem;color:var(--ink-soft);margin:0;">${p.label}</p>
+  // Resume card (About)
+  document.getElementById('resumeContact').textContent = d.contact.info.map(c=>c.value).join(' · ');
+  document.getElementById('resumeDownload').href = 'data:application/pdf;base64,' + CV_FILES[lang];
+  document.getElementById('resumeExpList').innerHTML = d.experience.items.map(item=>`
+    <div class="resume-exp-item">
+      <div class="resume-exp-year">${item.year}</div>
+      <div class="resume-exp-meta">${item.meta}</div>
+      <h5>${item.title}</h5>
+      ${item.list ? `<ul>${item.list.map(li=>`<li>${li}</li>`).join('')}</ul>` : `<p class="entry-body">${item.body||''}</p>`}
     </div>
   `).join('');
 
@@ -1063,21 +1098,6 @@ function applyStatic(lang){
       <div class="cap-icon">${ICONS[c.icon]}</div>
       <h4>${c.title}</h4>
       <p>${c.body}</p>
-    </div>
-  `).join('');
-
-  // Education
-  document.getElementById('eduGrid').innerHTML = d.education.items.map(e=>`
-    <div class="edu-card gcard">
-      ${Array.isArray(e.img)
-        ? `<div class="edu-media mcarousel n${e.img.length}">${e.img.map((k,i)=>`<img src="${IMAGES[k]}" alt="" loading="lazy" class="${i===0?'active':''}">`).join('')}<div class="tdots">${e.img.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div></div>`
-        : `<img src="${IMAGES[e.img]}" alt="" loading="lazy">`}
-      <div>
-        <h4>${e.title}</h4>
-        <p class="org">${e.org}</p>
-        <p class="yrs">${e.years}</p>
-        <p>${e.body}</p>
-      </div>
     </div>
   `).join('');
 
