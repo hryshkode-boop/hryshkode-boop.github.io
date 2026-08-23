@@ -377,7 +377,8 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
       <div class="resume-blocks">
         <div class="gcard reveal">
           <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14 15.5 9M2.5 14a9.5 9.5 0 0 1 19 0"/></svg><span data-i18n="about.profileTitle">Profile</span></h4>
-          <p data-i18n="about.lead" style="color:var(--ink-soft);margin:0;">About lead</p>
+          <p data-i18n="about.lead" style="color:var(--ink-soft);margin:0 0 10px;">About lead</p>
+          <p data-i18n="about.leadExtra" style="color:var(--ink-soft);margin:0;">About lead extra</p>
         </div>
         <div class="gcard reveal">
           <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.6 4.6L3 17l4 4 6.1-6.1a4 4 0 0 0 4.6-5.6l-2.8 2.8-2-2Z"/></svg><span data-i18n="about.expTitle">Work experience</span></h4>
@@ -523,15 +524,23 @@ const DICT = {
   },
   "about": {
     "eyebrow": "Про мене",
-    "title": "Точність, надійність і два десятиліття практики",
-    "lead": "Систематичний аналіз несправностей і методичний підхід до складних технічних збоїв. Висока особиста відповідальність і самостійна робота навіть в умовах дефіциту часу.",
+    "title": "Надійність, перевірена роками практики",
+    "lead": "Досвідчений IT-системний електронік з понад 20-річним досвідом діагностики та ремонту складного IT-обладнання (ноутбуків, ПК та інших пристроїв). Бакалавр з автоматизації, а також дипломований технік-електромеханік зі спеціалізацією CNC. Багаторічний досвід відповідальності за сервіс обладнання, роботу з клієнтами та онлайн-продажі.",
+    "leadExtra": "Активно вивчаю німецьку, зараз B1 і продовжую вдосконалювати, високо мотивований.",
     "profileTitle": "Профіль",
     "expTitle": "Досвід роботи і досягнення",
     "achievementsTitle": "Досягнення",
     "expItems": [
       { "year": "2024–2026", "meta": "Баварія, Німеччина", "body": "Переїзд і адаптація в Німеччині: інтеграційний курс, німецька до рівня B1, підготовка до виходу на місцевий ринок праці." },
       { "year": "2023–2026", "meta": "Харківський національний університет ім. В. Н. Каразіна", "body": "Здобув вищу освіту за фахом «автоматизація виробництва», поєднуючи навчання з повноцінною роботою." },
-      { "year": "2001–2024", "meta": "NoteComp, Харків", "body": "23 роки практики — від рядового майстра до провідного фахівця. Тисячі відремонтованих ноутбуків і ПК, участь у запуску інтернет-магазину компанії, до 80 одиниць техніки в обслуговуванні щомісяця." },
+      { "year": "2001–2024", "meta": "NoteComp, Харків", "list": [
+        "Систематична діагностика та ремонт ноутбуків, ПК та іншої техніки",
+        "Аналіз несправностей плат і модулів, комплексні рішення для їх усунення",
+        "Оновлення BIOS, керування драйверами, налаштування ОС та стороннього ПЗ",
+        "Створення та технічне адміністрування інтернет-магазину (OpenCart)",
+        "Через мої руки пройшли тисячі пристроїв за 23 роки роботи в компанії",
+        "Щомісячний обсяг до 80 одиниць обслугованої техніки"
+      ] },
       { "year": "1997–1999", "meta": "Харківський інститут радіоелектроніки", "body": "Перше серйозне занурення в радіотехніку — звідти й почався весь подальший інженерний шлях." }
     ],
     "points": [
@@ -682,14 +691,22 @@ const DICT = {
   "about": {
     "eyebrow": "About",
     "title": "Precision, reliability, two decades of practice",
-    "lead": "Systematic fault analysis and a methodical approach to complex technical issues. High degree of personal responsibility and independent work even under time pressure.",
+    "lead": "Experienced IT systems electronics technician with over 20 years of practical experience diagnosing and repairing complex IT hardware (notebooks, PCs and other devices). Bachelor's degree in Automation Engineering and qualified electromechanical technician with a CNC focus. Many years of responsibility for hardware service, customer support and online sales.",
+    "leadExtra": "Actively learning German, currently at B1 and continuing to improve, highly motivated.",
     "profileTitle": "Profile",
     "expTitle": "Work experience & achievements",
     "achievementsTitle": "Achievements",
     "expItems": [
       { "year": "2024–2026", "meta": "Bavaria, Germany", "body": "Relocating and settling in Germany: integration course, German up to B1, preparing for the local job market." },
       { "year": "2023–2026", "meta": "V. N. Karazin Kharkiv National University", "body": "Completed a university degree in automation engineering while working full-time." },
-      { "year": "2001–2024", "meta": "NoteComp, Kharkiv", "body": "23 years of hands-on growth from junior technician to lead specialist. Thousands of notebooks and PCs repaired, contributed to launching the company's online shop, and kept up to 80 devices a month in service." },
+      { "year": "2001–2024", "meta": "NoteComp, Kharkiv", "list": [
+        "Systematic diagnosis and repair of notebooks, PCs and other hardware",
+        "Fault analysis of boards and modules, with complete solutions to fix them",
+        "BIOS updates, driver management, OS and third-party software configuration",
+        "Development and technical administration of the online shop (OpenCart)",
+        "Thousands of devices have passed through my hands over 23 years with the company",
+        "Monthly service volume of up to 80 units of equipment"
+      ] },
       { "year": "1997–1999", "meta": "Kharkiv Institute of Radioelectronics", "body": "A first serious dive into radio engineering — the starting point of everything that followed." }
     ],
     "points": [
@@ -840,14 +857,22 @@ const DICT = {
   "about": {
     "eyebrow": "Über mich",
     "title": "Präzision, Zuverlässigkeit, zwei Jahrzehnte Praxis",
-    "lead": "Systematische Fehleranalyse und methodisches Vorgehen bei komplexen technischen Störungen. Hohe Eigenverantwortung und selbstständige Arbeitsweise auch unter Zeitdruck.",
+    "lead": "Erfahrener IT-Systemelektroniker mit über 20 Jahren praktischer Erfahrung in der Diagnose und Reparatur komplexer IT-Hardware (Notebooks, PCs und weiterer Geräte). Bachelor der Automatisierungstechnik sowie staatlich geprüfter Techniker-Elektromechaniker mit CNC-Schwerpunkt. Langjährige Verantwortung für Hardware-Service, Kundenbetreuung und Online-Vertrieb.",
+    "leadExtra": "Lerne aktiv Deutsch, aktuell auf B1-Niveau mit stetiger Weiterentwicklung, hoch motiviert.",
     "profileTitle": "Profil",
     "expTitle": "Berufserfahrung & Erfolge",
     "achievementsTitle": "Erfolge",
     "expItems": [
       { "year": "2024–2026", "meta": "Bayern, Deutschland", "body": "Umzug und Ankommen in Deutschland: Integrationskurs, Deutsch bis B1, Vorbereitung auf den hiesigen Arbeitsmarkt." },
       { "year": "2023–2026", "meta": "V. N. Karazin Kharkiv National University", "body": "Berufsbegleitend das Studium in Automatisierungstechnik abgeschlossen." },
-      { "year": "2001–2024", "meta": "NoteComp, Charkiw", "body": "23 Jahre praktischer Weg vom Junior-Techniker zum leitenden Spezialisten. Tausende reparierte Notebooks und PCs, Mitwirkung beim Aufbau des firmeneigenen Onlineshops und ein monatliches Servicevolumen von bis zu 80 Geräten." },
+      { "year": "2001–2024", "meta": "NoteComp, Charkiw", "list": [
+        "Systematische Diagnose und Reparatur von Notebooks, PCs und weiterer Hardware",
+        "Fehleranalyse an Platinen und Modulen mit vollständigen Lösungen zur Behebung",
+        "BIOS-Updates, Treibermanagement, Konfiguration von Betriebssystem und Drittsoftware",
+        "Aufbau und technische Administration des Onlineshops (OpenCart)",
+        "Tausende Geräte sind in 23 Jahren im Unternehmen durch meine Hände gegangen",
+        "Monatliches Servicevolumen von bis zu 80 Geräten"
+      ] },
       { "year": "1997–1999", "meta": "Charkiwer Institut für Funkelektronik", "body": "Die erste ernsthafte Begegnung mit der Funktechnik — der Ausgangspunkt für den gesamten weiteren beruflichen Weg." }
     ],
     "points": [
@@ -1049,9 +1074,7 @@ function applyStatic(lang){
   document.getElementById('heroResumeDownload').href = 'data:application/pdf;base64,' + CV_FILES[lang];
   document.getElementById('resumeExpList').innerHTML = d.about.expItems.map(item=>`
     <div class="resume-exp-item">
-      <div class="resume-exp-year">${item.year}</div>
-      <div class="resume-exp-meta">${item.meta}</div>
-      <p class="entry-body">${item.body}</p>
+      ${item.list ? `<ul>${item.list.map(li=>`<li>${li}</li>`).join('')}</ul>` : `<p class="entry-body">${item.body||''}</p>`}
     </div>
   `).join('');
   document.getElementById('resumeAchievements').innerHTML = d.about.points.map(p=>`<span class="stat-item"><b>${p.stat}</b> ${p.label}</span>`).join('');
