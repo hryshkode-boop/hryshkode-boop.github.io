@@ -102,7 +102,7 @@ nav.primary a:hover{color:var(--ink);}
 nav.primary a:hover::after{right:0;}
 .header-right{display:flex;align-items:center;gap:14px;}
 .langs{display:flex;gap:4px;background:var(--surface-2);border-radius:999px;padding:3px;}
-.langs button{width:30px;height:30px;border-radius:999px;border:none;background:transparent;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease;opacity:.55;}
+.langs button{width:34px;height:34px;border-radius:999px;border:none;background:transparent;cursor:pointer;font-size:15.5px;display:flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease;opacity:.55;}
 .langs button:hover{transform:translateY(-1px);opacity:.85;}
 .langs button.active{background:var(--surface);opacity:1;box-shadow:var(--shadow);}
 .burger{display:none;width:40px;height:40px;border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;align-items:center;justify-content:center;cursor:pointer;}
@@ -325,8 +325,8 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
     </a>
     <nav class="primary" id="primaryNav">
       <a href="#top" data-i18n="nav.home">Home</a>
+      <a href="#about" data-i18n="nav.about">About</a>
       <a href="#experience" data-i18n="nav.achievements">Achievements</a>
-      <a href="#top" data-i18n="nav.resume">Resume</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="header-right">
@@ -372,17 +372,6 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
       <div class="sec-head reveal">
         <p class="eyebrow" data-i18n="about.eyebrow">About</p>
         <h2 data-i18n="about.title">Precision, reliability, two decades of practice</h2>
-      </div>
-
-      <div class="resume-card reveal">
-        <div class="resume-head">
-          <img class="resume-avatar" src="img/hero.jpg" alt="">
-          <div class="resume-head-info">
-            <h3 data-i18n="name">Viacheslav Hryshko</h3>
-            <p class="resume-role" data-i18n="hero.roleLine">IT Systems Electronics Technician</p>
-            <p class="resume-contact" id="resumeContact"></p>
-          </div>
-        </div>
       </div>
 
       <div class="resume-blocks">
@@ -516,7 +505,7 @@ const DICT = {
 "uk": {
   "name": "Вячеслав Гришко",
   "meta": { "title": "Viacheslav Hryshko — IT-системний електронік", "description": "Ремонт та діагностика ноутбуків і ПК. Компонентний ремонт, BGA-пайка, відновлення даних. 20+ років досвіду." },
-  "nav": { "home": "Головна", "achievements": "Досягнення", "resume": "Резюме", "contact": "Контакти" },
+  "nav": { "home": "Головна", "about": "Про мене", "achievements": "Кар'єрний шлях", "contact": "Контакти" },
   "hero": {
     "eyebrow": "",
     "role": "IT-системний електронік",
@@ -529,7 +518,7 @@ const DICT = {
       { "v": "20+", "k": "Років досвіду" },
       { "v": "23", "k": "Роки в NoteComp" },
       { "v": "B1", "k": "Німецька" },
-      { "v": "100", "k": "Пристроїв/міс." }
+      { "v": "80", "k": "Пристроїв/міс." }
     ]
   },
   "about": {
@@ -541,7 +530,7 @@ const DICT = {
     "achievementsTitle": "Досягнення",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Років ремонту ноутбуків і ПК" },
-      { "icon": "cpu", "stat": "20–40", "label": "Пристроїв на місяць у ремонті" },
+      { "icon": "cpu", "stat": "80", "label": "Пристроїв на місяць в сервісі" },
       { "icon": "gauge", "stat": "B.Eng.", "label": "Автоматизація та робототехніка, 2026" },
       { "icon": "globe", "stat": "3", "label": "Робочі мови: укр., рос., нім. B1" }
     ]
@@ -571,13 +560,14 @@ const DICT = {
       {
         "year": "2001–2024",
         "meta": "NoteComp, Харків — 23 роки в компанії",
-        "title": "Провідний IT-системний електронік",
+        "title": "Senior IT-системотехнік",
         "list": [
-          "Систематична діагностика й ремонт ноутбуків, ПК та іншого IT-обладнання",
-          "Аналіз несправностей материнських плат, модулів і периферії",
-          "Оновлення BIOS, керування драйверами, налаштування ОС",
-          "Побудова й технічне адміністрування корпоративного інтернет-магазину (OpenCart)",
-          "Сервісний обсяг — до 100 пристроїв на місяць"
+          "Систематична діагностика та ремонт ноутбуків, ПК та іншої техніки",
+          "Аналіз несправностей плат і модулів, комплексні рішення для їх усунення",
+          "Оновлення BIOS, керування драйверами, налаштування ОС та стороннього ПЗ",
+          "Створення та технічне адміністрування інтернет-магазину (OpenCart)",
+          "Тисячі відремонтованих пристроїв за 23 роки в компанії",
+          "Щомісячний обсяг обслуговування — до 80 одиниць техніки"
         ],
         "img": ["notecomp3", "workshop", "notecomp2"]
       },
@@ -668,7 +658,7 @@ const DICT = {
 "en": {
   "name": "Viacheslav Hryshko",
   "meta": { "title": "Viacheslav Hryshko — IT Systems Electronics Technician", "description": "Laptop and PC repair, component-level diagnostics, BGA soldering, data recovery. 20+ years of experience." },
-  "nav": { "home": "Home", "achievements": "Achievements", "resume": "Resume", "contact": "Contact" },
+  "nav": { "home": "Home", "about": "About", "achievements": "Achievements", "contact": "Contact" },
   "hero": {
     "eyebrow": "",
     "role": "IT Systems Electronics Technician",
@@ -681,7 +671,7 @@ const DICT = {
       { "v": "20+", "k": "Years of experience" },
       { "v": "23", "k": "Years at NoteComp" },
       { "v": "B1", "k": "German" },
-      { "v": "100", "k": "Devices / month" }
+      { "v": "80", "k": "Devices / month" }
     ]
   },
   "about": {
@@ -693,7 +683,7 @@ const DICT = {
     "achievementsTitle": "Achievements",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Years repairing laptops & PCs" },
-      { "icon": "cpu", "stat": "20–40", "label": "Devices repaired per month" },
+      { "icon": "cpu", "stat": "80", "label": "Devices serviced per month" },
       { "icon": "gauge", "stat": "B.Eng.", "label": "Automation & robotics, 2026" },
       { "icon": "globe", "stat": "3", "label": "Working languages: UA, RU, DE B1" }
     ]
@@ -723,13 +713,14 @@ const DICT = {
       {
         "year": "2001–2024",
         "meta": "NoteComp, Kharkiv — 23 years with the company",
-        "title": "Senior IT Systems Electronics Technician",
+        "title": "Senior IT Systems Technician",
         "list": [
-          "Systematic diagnosis and repair of notebooks, PCs and other IT hardware",
-          "Fault analysis of mainboards, modules and peripherals",
-          "BIOS updates, driver management, operating system configuration",
-          "Concept, development and technical administration of the company's online shop (OpenCart)",
-          "Service volume up to 100 devices per month"
+          "Systematic diagnosis and repair of notebooks, PCs and other hardware",
+          "Fault analysis of boards and modules, with complete solutions to resolve them",
+          "BIOS updates, driver management, configuration of the OS and third-party software",
+          "Development and technical administration of the company's online shop (OpenCart)",
+          "Thousands of devices repaired over 23 years with the company",
+          "Monthly service volume — up to 80 units of equipment"
         ],
         "img": ["notecomp3", "workshop", "notecomp2"]
       },
@@ -820,7 +811,7 @@ const DICT = {
 "de": {
   "name": "Viacheslav Hryshko",
   "meta": { "title": "Viacheslav Hryshko — IT-Systemelektroniker", "description": "Notebook- und PC-Reparatur, Fehlerdiagnose auf Bauteilebene, BGA-Löttechnik, Datenrettung. Über 20 Jahre Erfahrung." },
-  "nav": { "home": "Start", "achievements": "Werdegang", "resume": "Lebenslauf", "contact": "Kontakt" },
+  "nav": { "home": "Start", "about": "Über mich", "achievements": "Werdegang", "contact": "Kontakt" },
   "hero": {
     "eyebrow": "",
     "role": "IT-Systemelektroniker",
@@ -833,7 +824,7 @@ const DICT = {
       { "v": "20+", "k": "Jahre Erfahrung" },
       { "v": "23", "k": "Jahre bei NoteComp" },
       { "v": "B1", "k": "Deutsch" },
-      { "v": "100", "k": "Geräte / Monat" }
+      { "v": "80", "k": "Geräte / Monat" }
     ]
   },
   "about": {
@@ -845,7 +836,7 @@ const DICT = {
     "achievementsTitle": "Erfolge",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Jahre Notebook- & PC-Reparatur" },
-      { "icon": "cpu", "stat": "20–40", "label": "Geräte pro Monat repariert" },
+      { "icon": "cpu", "stat": "80", "label": "Geräte pro Monat im Service" },
       { "icon": "gauge", "stat": "B.Eng.", "label": "Automatisierung & Robotik, 2026" },
       { "icon": "globe", "stat": "3", "label": "Arbeitssprachen: UA, RU, DE B1" }
     ]
@@ -875,13 +866,14 @@ const DICT = {
       {
         "year": "2001–2024",
         "meta": "NoteComp, Charkiw — 23 Jahre Betriebszugehörigkeit",
-        "title": "Senior IT-Systemelektroniker",
+        "title": "Senior IT-Systemtechniker",
         "list": [
-          "Systematische Diagnose und Reparatur von Notebooks, PCs und weiterer IT-Hardware",
-          "Fehleranalyse an Mainboards, Modulen und Peripherie",
-          "BIOS-Updates, Treibermanagement, Betriebssystem-Konfiguration",
-          "Konzeption, Aufbau und technische Administration des firmeneigenen Onlineshops (OpenCart)",
-          "Servicevolumen bis zu 100 Geräte pro Monat"
+          "Systematische Diagnose und Reparatur von Notebooks, PCs und weiterer Hardware",
+          "Fehleranalyse an Platinen und Modulen mit vollständigen Lösungen zur Behebung",
+          "BIOS-Updates, Treibermanagement, Konfiguration von Betriebssystem und Drittsoftware",
+          "Entwicklung und technische Administration des firmeneigenen Onlineshops (OpenCart)",
+          "Tausende reparierte Geräte in 23 Jahren im Unternehmen",
+          "Monatliches Servicevolumen — bis zu 80 Geräte"
         ],
         "img": ["notecomp3", "workshop", "notecomp2"]
       },
@@ -1040,7 +1032,6 @@ function applyStatic(lang){
 
   // Resume card (About)
   document.getElementById('heroResumeDownload').href = 'data:application/pdf;base64,' + CV_FILES[lang];
-  document.getElementById('resumeContact').textContent = d.contact.info.map(c=>c.value).join(' · ');
   document.getElementById('resumeExpList').innerHTML = d.experience.items.map(item=>`
     <div class="resume-exp-item">
       <div class="resume-exp-year">${item.year}</div>
