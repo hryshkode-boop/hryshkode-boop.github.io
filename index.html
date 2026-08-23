@@ -113,7 +113,7 @@ nav.primary a:hover::after{right:0;}
 /* ============ HERO ============ */
 .hero{
   position:relative;overflow:hidden;isolation:isolate;
-  min-height:min(86vh,820px);
+  min-height:max(600px, min(86vh,820px));
   display:flex;align-items:center;
   padding:clamp(88px,12vh,120px) 0 clamp(48px,7vh,72px);
 }
@@ -129,7 +129,7 @@ nav.primary a:hover::after{right:0;}
 }
 @media (max-width:640px){ .hero-bg{display:none;} }
 .hero-inner{position:relative;z-index:1;width:100%;}
-.hero-copy{max-width:600px;}
+.hero-copy{max-width:600px;margin-top:clamp(8px,3vh,40px);}
 .status-badge{display:inline-flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px 7px 10px;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:20px;box-shadow:var(--shadow);}
 .status-dot{width:8px;height:8px;border-radius:50%;background:var(--good);position:relative;flex-shrink:0;}
 .status-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--good);animation:pulseDot 2.2s cubic-bezier(.4,0,.6,1) infinite;}
@@ -182,10 +182,13 @@ section{padding:clamp(56px,8vw,92px) 0;}
 .tbody ul{margin:10px 0 0;padding-left:18px;color:var(--ink-soft);font-size:.95rem;}
 .tbody li{margin-bottom:5px;}
 .tbody .entry-body{color:var(--ink-soft);font-size:.96rem;margin:8px 0 0;}
-.tmedia{position:relative;aspect-ratio:4/3;overflow:hidden;box-shadow:var(--shadow);}
-.trow .tmedia{border-radius:var(--radius);}
-.tmedia img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s cubic-bezier(.16,1,.3,1);}
-.tmedia:hover img{transform:scale(1.04);}
+.tmedia{position:relative;aspect-ratio:4/3;}
+.tmedia img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);-webkit-mask-image:radial-gradient(ellipse 74% 80% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 74% 80% at 50% 50%,#000 58%,transparent 100%);}
+.tmedia:hover img{transform:scale(1.05);}
+.tmedia.mcarousel{cursor:pointer;}
+.tdots{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);display:flex;gap:5px;z-index:2;}
+.tdots span{width:5px;height:5px;border-radius:50%;background:var(--ink-faint);opacity:.45;transition:opacity .2s ease,background .2s ease;}
+.tdots span.active{opacity:1;background:var(--gold);}
 @media (max-width:760px){
   .tbody{grid-template-columns:1fr;}
   .tmedia{aspect-ratio:16/10;}
@@ -196,15 +199,12 @@ section{padding:clamp(56px,8vw,92px) 0;}
   .tnode{width:22px;height:22px;}
   .tnode::after{width:7px;height:7px;}
 }
-.mcarousel{position:relative;overflow:hidden;border-radius:var(--radius-sm);}
+.mcarousel{position:relative;overflow:hidden;border-radius:var(--radius-sm);cursor:pointer;}
+.trow .mcarousel{overflow:visible;border-radius:0;}
 .edu-card .mcarousel{width:100%;height:190px;}
-.mcarousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation-fill-mode:both;box-shadow:none;border-radius:0;}
-.mcarousel img:hover{transform:none;}
-.mcarousel:hover img{animation-play-state:paused;}
-.mcarousel.n2 img{animation:tcycle2 10s infinite;}
-.mcarousel.n3 img{animation:tcycle3 15s infinite;}
-@keyframes tcycle2{0%{opacity:0;transform:scale(1);}4%{opacity:1;}46%{opacity:1;transform:scale(1.08);}50%{opacity:0;transform:scale(1.08);}100%{opacity:0;}}
-@keyframes tcycle3{0%{opacity:0;transform:scale(1);}3%{opacity:1;}30%{opacity:1;transform:scale(1.08);}33%{opacity:0;transform:scale(1.08);}100%{opacity:0;}}
+.mcarousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);box-shadow:none;}
+.edu-card .mcarousel img{border-radius:var(--radius-sm);}
+.mcarousel img.active{opacity:1;}
 
 /* ============ SKILLS ============ */
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
@@ -579,6 +579,13 @@ const DICT = {
         "title": "Початок професійного шляху",
         "body": "Перші кроки та поглиблене вивчення радіотехніки, що заклали практичний інтерес до апаратної електроніки.",
         "img": "career1997"
+      },
+      {
+        "year": "1992–1996",
+        "meta": "Харківський верстатоінструментальний технікум (ХСІТ)",
+        "title": "Диплом техніка-електромеханіка",
+        "body": "Спеціалізація: налагодження та обслуговування верстатів з ЧПУ і робототехнічних комплексів.",
+        "img": ["diploma1996", "diploma1996b"]
       }
     ]
   },
@@ -613,9 +620,9 @@ const DICT = {
       {
         "img": ["diploma1996", "diploma1996b"],
         "title": "Диплом техніка-електромеханіка / CNC-техніка",
-        "org": "Харківський технікум шпиндельного та інструментального виробництва",
+        "org": "Харківський верстатоінструментальний технікум (ХСІТ)",
         "years": "1992 – 1996",
-        "body": "Спеціалізація: обслуговування та введення в експлуатацію верстатів із ЧПК і роботизованих систем."
+        "body": "Спеціалізація: налагодження та обслуговування верстатів з ЧПУ і робототехнічних комплексів."
       },
       {
         "img": "diploma2026",
@@ -721,6 +728,13 @@ const DICT = {
         "title": "Start of professional path",
         "body": "First steps and in-depth study of radio engineering that sparked a practical interest in hardware electronics.",
         "img": "career1997"
+      },
+      {
+        "year": "1992–1996",
+        "meta": "Kharkiv Machine-Tool Technical College (KhSIT)",
+        "title": "Diploma as Electromechanical Technician",
+        "body": "Specialisation: adjustment and maintenance of CNC-controlled machine tools and robotic systems.",
+        "img": ["diploma1996", "diploma1996b"]
       }
     ]
   },
@@ -755,9 +769,9 @@ const DICT = {
       {
         "img": ["diploma1996", "diploma1996b"],
         "title": "Diploma as electromechanical technician / CNC technician",
-        "org": "Kharkiv Technical College for Spindle and Tool Engineering",
+        "org": "Kharkiv Machine-Tool Technical College (KhSIT)",
         "years": "1992 – 1996",
-        "body": "Specialisation: maintenance and commissioning of CNC-controlled machine tools and robotic systems."
+        "body": "Specialisation: adjustment and maintenance of CNC-controlled machine tools and robotic systems."
       },
       {
         "img": "diploma2026",
@@ -863,6 +877,13 @@ const DICT = {
         "title": "Beginn des beruflichen Werdegangs",
         "body": "Erste Schritte und vertiefte Beschäftigung mit der Funktechnik, die das praktische Interesse an Hardware-Elektronik weckten.",
         "img": "career1997"
+      },
+      {
+        "year": "1992–1996",
+        "meta": "Charkower Werkzeugmaschinen-Technikum (ChSIT)",
+        "title": "Diplom als Techniker-Elektromechaniker",
+        "body": "Spezialisierung: Einrichtung und Wartung von CNC-gesteuerten Werkzeugmaschinen und robotischen Systemen.",
+        "img": ["diploma1996", "diploma1996b"]
       }
     ]
   },
@@ -897,9 +918,9 @@ const DICT = {
       {
         "img": ["diploma1996", "diploma1996b"],
         "title": "Diplom als Techniker-Elektromechaniker / CNC-Techniker",
-        "org": "Charkower Technikum für Spindel- und Werkzeugbau",
+        "org": "Charkower Werkzeugmaschinen-Technikum (ChSIT)",
         "years": "1992 – 1996",
-        "body": "Spezialisierung: Wartung und Inbetriebnahme von CNC-gesteuerten Werkzeugmaschinen und robotischen Systemen."
+        "body": "Spezialisierung: Einrichtung und Wartung von CNC-gesteuerten Werkzeugmaschinen und robotischen Systemen."
       },
       {
         "img": "diploma2026",
@@ -945,6 +966,33 @@ function detectLang(){
   return 'en';
 }
 function get(obj, path){ return path.split('.').reduce((o,k)=> (o && o[k] !== undefined) ? o[k] : undefined, obj); }
+
+function tmediaHTML(img){
+  if (!img) return '<div></div>';
+  const list = Array.isArray(img) ? img : [img];
+  if (list.length <= 1){
+    return `<div class="tmedia"><img src="${IMAGES[list[0]]}" alt="" loading="lazy"></div>`;
+  }
+  const imgs = list.map((k,i)=>`<img src="${IMAGES[k]}" alt="" loading="lazy" class="${i===0?'active':''}">`).join('');
+  const dots = list.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('');
+  return `<div class="tmedia mcarousel n${list.length}">${imgs}<div class="tdots">${dots}</div></div>`;
+}
+
+document.addEventListener('click', (e)=>{
+  const car = e.target.closest('.mcarousel');
+  if (!car) return;
+  const imgs = car.querySelectorAll('img');
+  if (imgs.length < 2) return;
+  const idx = Array.from(imgs).findIndex(im=>im.classList.contains('active'));
+  const next = (idx + 1) % imgs.length;
+  imgs[idx].classList.remove('active');
+  imgs[next].classList.add('active');
+  const dots = car.querySelectorAll('.tdots span');
+  if (dots.length){
+    if (dots[idx]) dots[idx].classList.remove('active');
+    if (dots[next]) dots[next].classList.add('active');
+  }
+});
 
 function applyStatic(lang){
   const d = DICT[lang];
@@ -996,10 +1044,7 @@ function applyStatic(lang){
           <h3>${item.title}</h3>
           ${item.list ? `<ul>${item.list.map(li=>`<li>${li}</li>`).join('')}</ul>` : `<p class="entry-body">${item.body||''}</p>`}
         </div>
-        ${item.img ? (Array.isArray(item.img)
-          ? `<div class="tmedia mcarousel n${item.img.length}">${item.img.map((k,i)=>`<img src="${IMAGES[k]}" alt="" loading="lazy" style="animation-delay:${i*5}s">`).join('')}</div>`
-          : `<div class="tmedia"><img src="${IMAGES[item.img]}" alt="" loading="lazy"></div>`
-        ) : '<div></div>'}
+        ${tmediaHTML(item.img)}
       </div>
     </div>
   `).join('');
@@ -1025,7 +1070,7 @@ function applyStatic(lang){
   document.getElementById('eduGrid').innerHTML = d.education.items.map(e=>`
     <div class="edu-card gcard">
       ${Array.isArray(e.img)
-        ? `<div class="edu-media mcarousel n${e.img.length}">${e.img.map((k,i)=>`<img src="${IMAGES[k]}" alt="" loading="lazy" style="animation-delay:${i*5}s">`).join('')}</div>`
+        ? `<div class="edu-media mcarousel n${e.img.length}">${e.img.map((k,i)=>`<img src="${IMAGES[k]}" alt="" loading="lazy" class="${i===0?'active':''}">`).join('')}<div class="tdots">${e.img.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div></div>`
         : `<img src="${IMAGES[e.img]}" alt="" loading="lazy">`}
       <div>
         <h4>${e.title}</h4>
