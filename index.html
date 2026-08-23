@@ -102,7 +102,7 @@ nav.primary a:hover{color:var(--ink);}
 nav.primary a:hover::after{right:0;}
 .header-right{display:flex;align-items:center;gap:14px;}
 .langs{display:flex;gap:4px;background:var(--surface-2);border-radius:999px;padding:3px;}
-.langs button{width:36px;height:36px;border-radius:999px;border:none;background:transparent;cursor:pointer;font-size:19px;display:flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease;opacity:.55;}
+.langs button{width:30px;height:30px;border-radius:999px;border:none;background:transparent;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease;opacity:.55;}
 .langs button:hover{transform:translateY(-1px);opacity:.85;}
 .langs button.active{background:var(--surface);opacity:1;box-shadow:var(--shadow);}
 .burger{display:none;width:40px;height:40px;border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;align-items:center;justify-content:center;cursor:pointer;}
@@ -183,6 +183,11 @@ section{padding:clamp(56px,8vw,92px) 0;}
 .resume-exp-item ul{margin:8px 0 0;padding-left:18px;color:var(--ink-soft);font-size:.92rem;}
 .resume-exp-item li{margin-bottom:4px;}
 .resume-exp-item .entry-body{color:var(--ink-soft);font-size:.92rem;margin:6px 0 0;}
+.resume-sub{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
+.resume-sub h5{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin:0 0 12px;}
+.resume-stats-inline{display:flex;flex-wrap:wrap;gap:8px 22px;}
+.resume-stats-inline .stat-item{font-size:.88rem;color:var(--ink-soft);}
+.resume-stats-inline .stat-item b{color:var(--ink);font-weight:800;}
 @media (max-width:560px){ .resume-head{flex-direction:column;align-items:flex-start;} }
 
 /* ============ EXPERIENCE / TIMELINE ============ */
@@ -321,7 +326,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
     <nav class="primary" id="primaryNav">
       <a href="#top" data-i18n="nav.home">Home</a>
       <a href="#experience" data-i18n="nav.achievements">Achievements</a>
-      <a href="#cv" data-i18n="nav.resume">Resume</a>
+      <a href="#top" data-i18n="nav.resume">Resume</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="header-right">
@@ -348,7 +353,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
         <p class="role" data-i18n="hero.roleLine">Automation engineering · CNC background · 20+ years in hardware repair</p>
         <p class="lede" data-i18n="hero.lead">Profile text.</p>
         <div class="hero-actions">
-          <a href="#cv" class="btn btn-primary magnetic">
+          <a href="#" id="heroResumeDownload" class="btn btn-primary magnetic" target="_blank" rel="noopener">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0-4-4m4 4 4-4M5 21h14"/></svg>
             <span data-i18n-text="hero.ctaResume">Download CV</span>
           </a>
@@ -377,10 +382,6 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
             <p class="resume-role" data-i18n="hero.roleLine">IT Systems Electronics Technician</p>
             <p class="resume-contact" id="resumeContact"></p>
           </div>
-          <a class="btn btn-primary btn-sm magnetic" id="resumeDownload" href="#" target="_blank" rel="noopener">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0-4-4m4 4 4-4M5 21h14"/></svg>
-            <span data-i18n-text="hero.ctaResume">Download CV</span>
-          </a>
         </div>
       </div>
 
@@ -392,6 +393,14 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
         <div class="gcard reveal">
           <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.6 4.6L3 17l4 4 6.1-6.1a4 4 0 0 0 4.6-5.6l-2.8 2.8-2-2Z"/></svg><span data-i18n="about.expTitle">Work experience</span></h4>
           <div id="resumeExpList"></div>
+          <div class="resume-sub">
+            <h5 data-i18n="about.achievementsTitle">Achievements</h5>
+            <div class="resume-stats-inline" id="resumeAchievements"></div>
+          </div>
+          <div class="resume-sub">
+            <h5 data-i18n="portfolio.title">What I repair</h5>
+            <div class="tag-list" id="resumeCaps"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -404,36 +413,6 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
         <h2 data-i18n="experience.title">Where the experience comes from</h2>
       </div>
       <div class="timeline stagger reveal" id="timelineList"></div>
-    </div>
-  </section>
-
-  <section id="portfolio">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <p class="eyebrow" data-i18n="portfolio.eyebrow">Portfolio</p>
-        <h2 data-i18n="portfolio.title">What I repair</h2>
-        <p class="lede" data-i18n="portfolio.lead" style="margin-top:14px;">Portfolio lead</p>
-      </div>
-      <div class="cap-grid stagger reveal" id="capGrid"></div>
-      <p class="portfolio-note reveal" data-i18n="portfolio.note">Note about real before/after coming soon.</p>
-
-      <div class="sec-head reveal" style="margin-top:56px;">
-        <p class="eyebrow" data-i18n="skills.eyebrow">Skills</p>
-        <h2 data-i18n="skills.title">What I work with day to day</h2>
-      </div>
-      <div class="skills-grid stagger reveal" id="skillsGrid"></div>
-    </div>
-  </section>
-
-  <section id="cv" class="sec-alt">
-    <div class="wrap">
-      <div class="cv-strip reveal">
-        <div>
-          <h3 data-i18n="cv.title">Full CV, ready to download</h3>
-          <p data-i18n="cv.lead">Choose your language — PDF opens in a new tab.</p>
-        </div>
-        <div class="cv-buttons" id="cvButtons"></div>
-      </div>
     </div>
   </section>
 
@@ -558,7 +537,8 @@ const DICT = {
     "title": "Точність, надійність і два десятиліття практики",
     "lead": "Систематичний аналіз несправностей і методичний підхід до складних технічних збоїв. Висока особиста відповідальність і самостійна робота навіть в умовах дефіциту часу.",
     "profileTitle": "Профіль",
-    "expTitle": "Досвід роботи",
+    "expTitle": "Досвід роботи і досягнення",
+    "achievementsTitle": "Досягнення",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Років ремонту ноутбуків і ПК" },
       { "icon": "cpu", "stat": "20–40", "label": "Пристроїв на місяць у ремонті" },
@@ -709,7 +689,8 @@ const DICT = {
     "title": "Precision, reliability, two decades of practice",
     "lead": "Systematic fault analysis and a methodical approach to complex technical issues. High degree of personal responsibility and independent work even under time pressure.",
     "profileTitle": "Profile",
-    "expTitle": "Work experience",
+    "expTitle": "Work experience & achievements",
+    "achievementsTitle": "Achievements",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Years repairing laptops & PCs" },
       { "icon": "cpu", "stat": "20–40", "label": "Devices repaired per month" },
@@ -860,7 +841,8 @@ const DICT = {
     "title": "Präzision, Zuverlässigkeit, zwei Jahrzehnte Praxis",
     "lead": "Systematische Fehleranalyse und methodisches Vorgehen bei komplexen technischen Störungen. Hohe Eigenverantwortung und selbstständige Arbeitsweise auch unter Zeitdruck.",
     "profileTitle": "Profil",
-    "expTitle": "Berufserfahrung",
+    "expTitle": "Berufserfahrung & Erfolge",
+    "achievementsTitle": "Erfolge",
     "points": [
       { "icon": "wrench", "stat": "20+", "label": "Jahre Notebook- & PC-Reparatur" },
       { "icon": "cpu", "stat": "20–40", "label": "Geräte pro Monat repariert" },
@@ -1057,8 +1039,8 @@ function applyStatic(lang){
   document.getElementById('heroStats').innerHTML = d.hero.stats.map(s=>`<div class="hero-stat"><b>${s.v}</b><span>${s.k}</span></div>`).join('');
 
   // Resume card (About)
+  document.getElementById('heroResumeDownload').href = 'data:application/pdf;base64,' + CV_FILES[lang];
   document.getElementById('resumeContact').textContent = d.contact.info.map(c=>c.value).join(' · ');
-  document.getElementById('resumeDownload').href = 'data:application/pdf;base64,' + CV_FILES[lang];
   document.getElementById('resumeExpList').innerHTML = d.experience.items.map(item=>`
     <div class="resume-exp-item">
       <div class="resume-exp-year">${item.year}</div>
@@ -1067,6 +1049,8 @@ function applyStatic(lang){
       ${item.list ? `<ul>${item.list.map(li=>`<li>${li}</li>`).join('')}</ul>` : `<p class="entry-body">${item.body||''}</p>`}
     </div>
   `).join('');
+  document.getElementById('resumeAchievements').innerHTML = d.about.points.map(p=>`<span class="stat-item"><b>${p.stat}</b> ${p.label}</span>`).join('');
+  document.getElementById('resumeCaps').innerHTML = d.portfolio.caps.map(c=>`<span class="tag">${c.title}</span>`).join('');
 
   // Timeline
   document.getElementById('timelineList').innerHTML = d.experience.items.map(item=>`
@@ -1083,28 +1067,6 @@ function applyStatic(lang){
       </div>
     </div>
   `).join('');
-
-  // Skills
-  document.getElementById('skillsGrid').innerHTML = d.skills.groups.map(g=>`
-    <div class="skill-cat gcard">
-      <h4>${ICONS[g.icon]}${g.title}</h4>
-      <div class="tag-list">${g.items.map(i=>`<span class="tag">${i}</span>`).join('')}</div>
-    </div>
-  `).join('');
-
-  // Portfolio capabilities
-  document.getElementById('capGrid').innerHTML = d.portfolio.caps.map(c=>`
-    <div class="cap-card gcard">
-      <div class="cap-icon">${ICONS[c.icon]}</div>
-      <h4>${c.title}</h4>
-      <p>${c.body}</p>
-    </div>
-  `).join('');
-
-  // CV buttons
-  document.getElementById('cvButtons').innerHTML = [
-    {code:'uk', label:'UA'}, {code:'en', label:'EN'}, {code:'de', label:'DE'}
-  ].map(l=>`<a class="btn btn-ghost magnetic" href="data:application/pdf;base64,${CV_FILES[l.code]}" target="_blank" rel="noopener">${ICONS.download}<span>CV — ${l.label}</span></a>`).join('');
 
   // Contact list
   document.getElementById('contactList').innerHTML = d.contact.info.map(c=>`
