@@ -218,7 +218,7 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .tbody ul{margin:10px 0 0;padding-left:18px;color:var(--ink-soft);font-size:.95rem;}
 .tbody li{margin-bottom:5px;}
 .tbody .entry-body{color:var(--ink-soft);font-size:.96rem;margin:8px 0 0;}
-.tmedia{position:relative;aspect-ratio:16/10;}
+.tmedia{position:relative;aspect-ratio:16/9;}
 .tmedia img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,1,.3,1);}
 .tmedia:hover img{transform:scale(1.05);}
 .tmedia.mcarousel{cursor:pointer;}
@@ -227,7 +227,7 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .tdots span.active{opacity:1;background:var(--gold);}
 @media (max-width:760px){
   .tbody{grid-template-columns:1fr;}
-  .tmedia{aspect-ratio:16/10;}
+  .tmedia{aspect-ratio:16/9;}
 }
 @media (max-width:520px){
   .timeline::before{left:11px;}
@@ -240,6 +240,7 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .edu-card .mcarousel{width:100%;height:190px;}
 .mcarousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;box-shadow:none;}
 .edu-card .mcarousel img{border-radius:var(--radius-sm);}
+.trow .mcarousel img{object-fit:contain;background:var(--surface-2);}
 .mcarousel img.active{opacity:1;}
 
 /* ============ SKILLS ============ */
