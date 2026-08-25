@@ -94,6 +94,19 @@ header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(-
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0e2338);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0;}
 .brand-text{font-weight:800;font-size:16.5px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw;}
+.brand-name{
+  display:inline-block;
+  background:linear-gradient(100deg, var(--ink) 42%, #fff 49%, var(--gold) 52%, var(--ink) 60%);
+  background-size:300% 100%;
+  background-position:150% 0;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:nameShine 22s ease-in-out infinite;
+}
+@keyframes nameShine{
+  0%{background-position:150% 0;}
+  22%{background-position:-50% 0;}
+  100%{background-position:-50% 0;}
+}
 .brand-text small{display:block;font-weight:500;font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 nav.primary{display:flex;align-items:center;gap:clamp(14px,2vw,28px);}
 nav.primary a{font-size:15.5px;font-weight:600;text-decoration:none;color:var(--ink-soft);position:relative;padding:6px 1px;transition:color .18s ease;}
@@ -134,19 +147,7 @@ nav.primary a:hover::after{right:0;}
 .status-dot{width:8px;height:8px;border-radius:50%;background:var(--good);position:relative;flex-shrink:0;}
 .status-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--good);animation:pulseDot 2.2s cubic-bezier(.4,0,.6,1) infinite;}
 @keyframes pulseDot{0%{transform:scale(.6);opacity:.9;}70%{transform:scale(1.8);opacity:0;}100%{opacity:0;}}
-.hero h1{
-  font-size:clamp(2.5rem,5.4vw,4rem);margin-bottom:14px;
-  background:linear-gradient(100deg, var(--ink) 45%, var(--gold) 50%, var(--ink) 55%);
-  background-size:300% 100%;
-  background-position:150% 0;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:nameShine 7s ease-in-out infinite;
-}
-@keyframes nameShine{
-  0%{background-position:150% 0;}
-  12%{background-position:-50% 0;}
-  100%{background-position:-50% 0;}
-}
+.hero h1{font-size:clamp(2.5rem,5.4vw,4rem);margin-bottom:14px;}
 .hero .role{font-size:clamp(15px,1.6vw,17px);font-weight:600;color:var(--accent);margin-bottom:18px;}
 .hero .lede{margin-bottom:22px;font-size:1.05rem;}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px;}
@@ -337,7 +338,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
   <div class="wrap site-inner">
     <a class="brand" href="#top">
       <span class="brand-mark">VH</span>
-      <span class="brand-text"><span data-i18n="name">Viacheslav Hryshko</span><small data-i18n="hero.role">IT Systems Electronics Technician</small></span>
+      <span class="brand-text"><span class="brand-name" data-i18n="name">Viacheslav Hryshko</span><small data-i18n="hero.role">IT Systems Electronics Technician</small></span>
     </a>
     <nav class="primary" id="primaryNav">
       <a href="#top" data-i18n="nav.home">Home</a>
