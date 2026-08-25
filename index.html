@@ -100,11 +100,11 @@ header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(-
   background-size:300% 100%;
   background-position:150% 0;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:nameShine 22s ease-in-out infinite;
+  animation:nameShine 30s ease-in-out infinite;
 }
 @keyframes nameShine{
   0%{background-position:150% 0;}
-  22%{background-position:-50% 0;}
+  16%{background-position:-50% 0;}
   100%{background-position:-50% 0;}
 }
 .brand-text small{display:block;font-weight:500;font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -1139,8 +1139,14 @@ function applyStatic(lang){
 
 function setLang(lang){
   if (!DICT[lang]) lang = 'en';
-  currentLang = lang;
-  applyStatic(lang);
+  if (lang === currentLang) return;
+  document.body.style.transition = 'opacity .18s ease';
+  document.body.style.opacity = '0';
+  setTimeout(()=>{
+    currentLang = lang;
+    applyStatic(lang);
+    document.body.style.opacity = '1';
+  }, 180);
 }
 
 document.getElementById('langSwitch').addEventListener('click', e=>{
@@ -1207,5 +1213,21 @@ document.getElementById('contactForm').addEventListener('submit', async (e)=>{
   } finally { submit.disabled = false; }
 });
 
-setLang(detectLang());
+(()=>{
+  const lang = DICT[detectLang()] ? detectLang() : 'en';
+  currentLang = lang;
+  applyStatic(lang);
+})();
+
+// Parallax on hero photo
+(()=>{
+  const heroImg = document.querySelector('.hero-bg img');
+  if (!heroImg) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+  window.addEventListener('scroll', ()=>{
+    const shift = Math.min(window.scrollY * 0.15, 24);
+    heroImg.style.transform = `scale(1.05) translateY(${shift}px)`;
+  }, { passive: true });
+})();
 </script>
