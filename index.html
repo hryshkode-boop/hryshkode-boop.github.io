@@ -1226,7 +1226,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e)=>{
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) return;
   window.addEventListener('scroll', ()=>{
-    const shift = Math.min(window.scrollY * 0.15, 24);
+    const shift = Math.min(window.scrollY * 0.35, 90);
     heroImg.style.transform = `scale(1.05) translateY(${shift}px)`;
   }, { passive: true });
 })();
