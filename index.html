@@ -60,9 +60,10 @@
   --font:'Calibri','Carlito',-apple-system,"Segoe UI",sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:smooth;overflow-x:hidden;}
+html{scroll-behavior:smooth;}
+#page-clip{overflow-x:hidden;overflow-y:visible;}
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms!important;transition-duration:.001ms!important;} }
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
 img{max-width:100%;display:block;}
 a{color:inherit;}
 button{font:inherit;}
@@ -335,6 +336,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
 
 <!-- ============================================================ -->
 
+<div id="page-clip">
 <header class="site">
   <div class="wrap site-inner">
     <a class="brand" href="#top">
@@ -473,6 +475,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
     </div>
   </div>
 </footer>
+</div>
 
 <script>
 const IMAGES = {
