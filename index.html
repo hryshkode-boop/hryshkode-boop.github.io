@@ -50,8 +50,8 @@
   --accent:#1c3f66;
   --accent-ink:#ffffff;
   --accent-soft:rgba(28,63,102,.07);
-  --gold:#b8902e;
-  --gold-soft:rgba(184,144,46,.14);
+  --gold:#8a97a3;
+  --gold-soft:rgba(138,151,163,.14);
   --good:#2f8f5b;
   --radius:16px;
   --radius-sm:10px;
@@ -83,9 +83,9 @@ svg{stroke-width:1.8;}
   transition:transform .22s cubic-bezier(.16,1,.3,1), box-shadow .28s ease, background .22s ease, border-color .22s ease, color .22s ease;
 }
 .btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:var(--shadow);}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(184,144,46,.35), 0 16px 34px -12px rgba(28,63,102,.55), 0 0 24px -4px rgba(184,144,46,.55);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(138,151,163,.35), 0 16px 34px -12px rgba(28,63,102,.55), 0 0 24px -4px rgba(138,151,163,.55);}
 .btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong);}
-.btn-ghost:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 12px 26px -14px rgba(16,24,39,.3), 0 0 18px -6px rgba(184,144,46,.4);}
+.btn-ghost:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 12px 26px -14px rgba(16,24,39,.3), 0 0 18px -6px rgba(138,151,163,.4);}
 .btn-sm{padding:9px 16px;font-size:13px;}
 .btn .icon{width:16px;height:16px;}
 
@@ -97,7 +97,7 @@ header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(-
 .brand-text{font-weight:800;font-size:16.5px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw;}
 .brand-name{
   display:inline-block;
-  background:linear-gradient(100deg, var(--ink) 42%, #fff 49%, var(--gold) 52%, var(--ink) 60%);
+  background:linear-gradient(100deg, var(--ink) 40%, var(--gold) 46%, #ffffff 50%, var(--gold) 54%, var(--ink) 60%);
   background-size:300% 100%;
   background-position:150% 0;
   -webkit-background-clip:text;background-clip:text;color:transparent;
@@ -251,7 +251,7 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .skill-cat h4 .icon{color:var(--accent);}
 .tag-list{display:flex;flex-wrap:wrap;gap:8px;}
 .tag{font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);border:1px solid transparent;transition:transform .22s cubic-bezier(.16,1,.3,1), background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease;}
-.tag:hover{transform:translateY(-2px);background:var(--surface);border-color:var(--gold);color:var(--ink);box-shadow:0 8px 18px -10px rgba(184,144,46,.5);}
+.tag:hover{transform:translateY(-2px);background:var(--surface);border-color:var(--gold);color:var(--ink);box-shadow:0 8px 18px -10px rgba(138,151,163,.5);}
 
 /* ============ PORTFOLIO / CAPABILITIES ============ */
 .cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
@@ -260,7 +260,7 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .cap-icon .icon{width:22px;height:22px;color:var(--accent);}
 .cap-card h4{font-size:15.5px;font-weight:700;margin-bottom:6px;}
 .cap-card p{font-size:.92rem;color:var(--ink-soft);margin:0;}
-.portfolio-note{margin-top:28px;padding:16px 18px;border-radius:var(--radius-sm);background:var(--gold-soft);border:1px solid rgba(184,144,46,.3);font-size:.9rem;color:var(--ink-soft);}
+.portfolio-note{margin-top:28px;padding:16px 18px;border-radius:var(--radius-sm);background:var(--gold-soft);border:1px solid rgba(138,151,163,.3);font-size:.9rem;color:var(--ink-soft);}
 
 /* ============ EDUCATION ============ */
 .edu-grid{display:grid;grid-template-columns:1fr;gap:20px;}
@@ -287,13 +287,13 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .contact-list a{display:flex;align-items:center;gap:14px;padding:13px 6px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);transition:color .18s ease, padding-left .18s ease;}
 .contact-list a:hover{color:var(--accent);padding-left:8px;}
 .contact-list .ico{width:36px;height:36px;border-radius:10px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s ease,box-shadow .2s ease;}
-.contact-list a:hover .ico{background:var(--gold-soft);box-shadow:0 0 0 1px rgba(184,144,46,.35);}
+.contact-list a:hover .ico{background:var(--gold-soft);box-shadow:0 0 0 1px rgba(138,151,163,.35);}
 .contact-list .ico .icon{width:16px;height:16px;color:var(--accent);}
 .contact-list .label{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);font-weight:700;display:block;margin-bottom:2px;}
 .contact-list .value{font-weight:600;font-size:.95rem;}
 .social-row{display:flex;gap:10px;margin-top:26px;}
 .social-row a{width:42px;height:42px;border-radius:12px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);transition:transform .22s cubic-bezier(.16,1,.3,1), background .22s ease, color .22s ease, box-shadow .22s ease;}
-.social-row a:hover{transform:translateY(-3px);background:var(--accent);color:#fff;box-shadow:0 10px 22px -10px rgba(28,63,102,.6), 0 0 16px -4px rgba(184,144,46,.5);}
+.social-row a:hover{transform:translateY(-3px);background:var(--accent);color:#fff;box-shadow:0 10px 22px -10px rgba(28,63,102,.6), 0 0 16px -4px rgba(138,151,163,.5);}
 .social-row .icon{width:18px;height:18px;}
 
 form.contact-form{display:flex;flex-direction:column;gap:16px;}
@@ -540,7 +540,8 @@ const ICONS = {
   download:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0-4-4m4 4 4-4M5 21h14"/></svg>',
   plane:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg>',
   graduationCap:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>',
-  gear:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>'
+  gear:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>',
+  laptopTool:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="13" height="9" rx="1"/><path d="M1 17.5h15"/><path d="M12 11 21 2"/><path d="M18 2h3v3"/></svg>'
 };
 
 const DICT = {
@@ -615,7 +616,7 @@ const DICT = {
       {
         "year": "2001–2024",
         "meta": "NoteComp, Харків — 23 роки в компанії",
-        "icon": "wrench",
+        "icon": "laptopTool",
         "title": "Провідний IT-системний електронік",
         "list": [
           "Систематична діагностика й ремонт ноутбуків, ПК та іншого IT-обладнання",
@@ -783,7 +784,7 @@ const DICT = {
       {
         "year": "2001–2024",
         "meta": "NoteComp, Kharkiv — 23 years with the company",
-        "icon": "wrench",
+        "icon": "laptopTool",
         "title": "Senior IT Systems Electronics Technician",
         "list": [
           "Systematic diagnosis and repair of notebooks, PCs and other IT hardware",
@@ -951,7 +952,7 @@ const DICT = {
       {
         "year": "2001–2024",
         "meta": "NoteComp, Charkiw — 23 Jahre Betriebszugehörigkeit",
-        "icon": "wrench",
+        "icon": "laptopTool",
         "title": "Senior IT-Systemelektroniker",
         "list": [
           "Systematische Diagnose und Reparatur von Notebooks, PCs und weiterer IT-Hardware",
