@@ -424,7 +424,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
 <script>
 const IMAGES = {
   certificateB1_1: "img/1.jpeg",
-  diploma1996_3: "img/2.jpeg",
+  diploma2026_1: "img/2.jpeg",
   notecomp_3: "img/3.jpeg",
   career1997_3: "img/4.jpeg",
   diploma1996_4: "img/5.jpeg"
@@ -511,7 +511,7 @@ const DICT = {
         "icon": "graduationCap",
         "title": "Бакалавр автоматизації виробництва",
         "body": "Спеціалізація: автоматизація, комп'ютерно-інтегровані технології та робототехнічні комплекси.",
-        "img": []
+        "img": ["diploma2026_1"]
       },
       {
         "year": "2001–2024",
@@ -541,7 +541,7 @@ const DICT = {
         "icon": "gear",
         "title": "Диплом техніка-електромеханіка",
         "body": "Спеціалізація: налагодження та обслуговування верстатів з ЧПУ і робототехнічних комплексів.",
-        "img": ["diploma1996_3", "diploma1996_4"]
+        "img": ["diploma1996_4"]
       }
     ]
   },
@@ -625,7 +625,7 @@ const DICT = {
         "icon": "graduationCap",
         "title": "Bachelor's degree in Automation Engineering",
         "body": "Specialisation: automation, computer-integrated technologies and robotics.",
-        "img": []
+        "img": ["diploma2026_1"]
       },
       {
         "year": "2001–2024",
@@ -655,7 +655,7 @@ const DICT = {
         "icon": "gear",
         "title": "Diploma as Electromechanical Technician",
         "body": "Specialisation: adjustment and maintenance of CNC-controlled machine tools and robotic systems.",
-        "img": ["diploma1996_3", "diploma1996_4"]
+        "img": ["diploma1996_4"]
       }
     ]
   },
@@ -739,7 +739,7 @@ const DICT = {
         "icon": "graduationCap",
         "title": "Bachelor der Automatisierungstechnik",
         "body": "Spezialisierung: Automatisierung, computerintegrierte Technologien und Robotik.",
-        "img": []
+        "img": ["diploma2026_1"]
       },
       {
         "year": "2001–2024",
@@ -769,7 +769,7 @@ const DICT = {
         "icon": "gear",
         "title": "Diplom als Techniker-Elektromechaniker",
         "body": "Spezialisierung: Einrichtung und Wartung von CNC-gesteuerten Werkzeugmaschinen und robotischen Systemen.",
-        "img": ["diploma1996_3", "diploma1996_4"]
+        "img": ["diploma1996_4"]
       }
     ]
   },
@@ -808,6 +808,9 @@ function get(obj, path){ return path.split('.').reduce((o,k)=> (o && o[k] !== un
 function tmediaHTML(img){
   if (!img) return '<div></div>';
   const list = Array.isArray(img) ? img : [img];
+  if (list.length === 0){
+    return '<div></div>';
+  }
   if (list.length <= 1){
     return `<div class="tmedia"><img src="${IMAGES[list[0]]}" alt="" loading="lazy"></div>`;
   }
