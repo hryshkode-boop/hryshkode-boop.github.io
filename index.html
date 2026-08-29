@@ -318,7 +318,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
         <p class="role" data-i18n="hero.roleLine">Automation engineering · CNC background · 20+ years in hardware repair</p>
         <p class="lede" data-i18n="hero.lead">Profile text.</p>
         <div class="hero-actions">
-          <a href="#" id="heroResumeDownload" class="btn btn-primary magnetic" target="_blank" rel="noopener">
+          <a href="#" id="heroResumeDownload" class="btn btn-primary magnetic" download="Viacheslav_Hryshko_CV_EN.pdf">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0-4-4m4 4 4-4M5 21h14"/></svg>
             <span data-i18n-text="hero.ctaResume">Download CV</span>
           </a>
@@ -836,18 +836,18 @@ document.addEventListener('click', (e)=>{
 });
 
 let currentCvUrl = null;
-function setResumeHref(lang){
-  const base64 = CV_FILES[lang];
-  if (!base64) return;
-  const byteChars = atob(base64);
-  const byteNumbers = new Array(byteChars.length);
-  for (let i = 0; i < byteChars.length; i++) byteNumbers[i] = byteChars.charCodeAt(i);
-  const byteArray = new Uint8Array(byteNumbers);
-  const blob = new Blob([byteArray], { type: 'application/pdf' });
-  if (currentCvUrl) URL.revokeObjectURL(currentCvUrl);
-  currentCvUrl = URL.createObjectURL(blob);
-  document.getElementById('heroResumeDownload').href = currentCvUrl;
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 function applyStatic(lang){
   const d = DICT[lang];
