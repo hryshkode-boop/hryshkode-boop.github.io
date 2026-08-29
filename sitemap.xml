@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://hryshko.info/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://hryshko.info/?lang=uk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hryshko.info/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hryshko.info/?lang=de"/>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://hryshko.info/impressum.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://hryshko.info/datenschutz.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
