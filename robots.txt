@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /cv/
+Allow: /img/
+
+Disallow: /
+
+Sitemap: https://hryshko.info/sitemap.xml
