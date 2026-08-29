@@ -848,19 +848,11 @@ document.addEventListener('click', (e)=>{
   }
 });
 
-let currentCvUrl = null;
 function setResumeHref(lang){
-  const base64 = CV_FILES[lang];
-  if (!base64) return;
-  const byteChars = atob(base64);
-  const byteNumbers = new Array(byteChars.length);
-  for (let i = 0; i < byteChars.length; i++) byteNumbers[i] = byteChars.charCodeAt(i);
-  const byteArray = new Uint8Array(byteNumbers);
-  const blob = new Blob([byteArray], { type: 'application/pdf' });
-  if (currentCvUrl) URL.revokeObjectURL(currentCvUrl);
-  currentCvUrl = URL.createObjectURL(blob);
+  const cvUrl = CV_FILES[lang];
+  if (!cvUrl) return;
   const button = document.getElementById('heroResumeDownload');
-  button.href = currentCvUrl;
+  button.href = cvUrl;
   const fileNames = { uk: 'Viacheslav_Hryshko_CV_UA.pdf', de: 'Viacheslav_Hryshko_CV_DE.pdf', en: 'Viacheslav_Hryshko_CV_EN.pdf' };
   button.download = fileNames[lang] || fileNames.en;
 }
