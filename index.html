@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Viacheslav Hryshko — IT Systems Electronics Technician & Laptop Repair</title>
   <meta name="description" content="IT systems electronics technician — laptop and PC repair, diagnostics, component-level service. 20+ years experience. BGA soldering, hardware diagnostics.">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231c3f66'/%3E%3Cstop offset='1' stop-color='%230e2338'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='17' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Calibri, Arial, sans-serif' font-size='26' font-weight='800' fill='%23ffffff' text-anchor='middle'%3EVH%3C/text%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-
+  
   <!-- SEO: Canonical & Hreflang -->
   <link rel="canonical" href="https://hryshko.info/">
   <link rel="alternate" hreflang="uk" href="https://hryshko.info/?lang=uk">
@@ -539,7 +535,7 @@ const DICT = {
           "Систематична діагностика й ремонт ноутбуків, ПК та іншого IT-обладнання",
           "Аналіз несправностей материнських плат, модулів і периферії",
           "Оновлення BIOS, керування драйверами, налаштування ОС",
-          "Побудова й технічне адміністрування корпоративного інтернет-магазину (OpenCart)",
+          "Побудова й технічне адміністрування корпоративного інтернет-магазину (OpenCart), а також адміністрування соцмереж",
           "Сервісний обсяг — до 80 пристроїв на місяць"
         ],
         "img": ["notecomp_3"]
@@ -653,7 +649,7 @@ const DICT = {
           "Systematic diagnosis and repair of notebooks, PCs and other IT hardware",
           "Fault analysis of mainboards, modules and peripherals",
           "BIOS updates, driver management, operating system configuration",
-          "Concept, development and technical administration of the company's online shop (OpenCart)",
+          "Concept, development and technical administration of the company's online shop (OpenCart), as well as social media administration",
           "Service volume up to 80 devices per month"
         ],
         "img": ["notecomp_3"]
@@ -767,7 +763,7 @@ const DICT = {
           "Systematische Diagnose und Reparatur von Notebooks, PCs und weiterer IT-Hardware",
           "Fehleranalyse an Mainboards, Modulen und Peripherie",
           "BIOS-Updates, Treibermanagement, Betriebssystem-Konfiguration",
-          "Konzeption, Aufbau und technische Administration des firmeneigenen Onlineshops (OpenCart)",
+          "Konzeption, Aufbau und technische Administration des firmeneigenen Onlineshops (OpenCart) sowie Verwaltung der Social-Media-Kanäle",
           "Servicevolumen bis zu 80 Geräte pro Monat"
         ],
         "img": ["notecomp_3"]
@@ -822,16 +818,19 @@ function detectLang(){
 }
 function get(obj, path){ return path.split('.').reduce((o,k)=> (o && o[k] !== undefined) ? o[k] : undefined, obj); }
 
-function tmediaHTML(img){
+function escAttr(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
+
+function tmediaHTML(img, altText){
   if (!img) return '<div></div>';
   const list = Array.isArray(img) ? img : [img];
   if (list.length === 0){
     return '<div></div>';
   }
+  const alt = escAttr(altText);
   if (list.length <= 1){
-    return `<div class="tmedia"><img src="${IMAGES[list[0]]}" alt="" loading="lazy"></div>`;
+    return `<div class="tmedia"><img src="${IMAGES[list[0]]}" alt="${alt}" loading="lazy"></div>`;
   }
-  const imgs = list.map((k,i)=>`<img src="${IMAGES[k]}" alt="" loading="lazy" class="${i===0?'active':''}">`).join('');
+  const imgs = list.map((k,i)=>`<img src="${IMAGES[k]}" alt="${alt}" loading="lazy" class="${i===0?'active':''}">`).join('');
   const dots = list.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('');
   return `<div class="tmedia mcarousel n${list.length}">${imgs}<div class="tdots">${dots}</div></div>`;
 }
@@ -911,7 +910,7 @@ function applyStatic(lang){
           <h3>${item.icon ? ICONS[item.icon] : ''}${item.title}</h3>
           ${item.list ? `<ul>${item.list.map(li=>`<li>${li}</li>`).join('')}</ul>` : `<p class="entry-body">${item.body||''}</p>`}
         </div>
-        ${tmediaHTML(item.img)}
+        ${tmediaHTML(item.img, item.title)}
       </div>
     </div>
   `).join('');
