@@ -10,6 +10,9 @@
   <link rel="icon" href="/img/apple-touch-icon.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
+  <!-- Analytics: Umami (no cookies, no personal data, no consent banner required — see datenschutz.html §5) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="c3b1df9d-fc8f-4b41-9734-3026749142fa"></script>
+
   <!-- SEO: Canonical & Hreflang -->
   <link rel="canonical" href="https://hryshko.info/">
   <link rel="alternate" hreflang="uk" href="https://hryshko.info/?lang=uk">
@@ -335,7 +338,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
         <p class="role" data-i18n="hero.roleLine">Automation engineering · CNC background · 20+ years in hardware repair</p>
         <p class="lede" data-i18n="hero.lead">Profile text.</p>
         <div class="hero-actions">
-          <a href="#" id="heroResumeDownload" class="btn btn-primary magnetic" download="Viacheslav_Hryshko_CV_EN.pdf">
+          <a href="#" id="heroResumeDownload" class="btn btn-primary magnetic" download="Viacheslav_Hryshko_CV_EN.pdf" data-umami-event="download-cv" data-umami-event-language="en">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0-4-4m4 4 4-4M5 21h14"/></svg>
             <span data-i18n-text="hero.ctaResume">Download CV</span>
           </a>
@@ -863,6 +866,7 @@ function setResumeHref(lang){
   button.href = cvUrl;
   const fileNames = { uk: 'Viacheslav_Hryshko_CV_UA.pdf', de: 'Viacheslav_Hryshko_CV_DE.pdf', en: 'Viacheslav_Hryshko_CV_EN.pdf' };
   button.download = fileNames[lang] || fileNames.en;
+  button.setAttribute('data-umami-event-language', lang);
 }
 
 
@@ -1014,10 +1018,12 @@ document.getElementById('contactForm').addEventListener('submit', async (e)=>{
       msg.className = 'form-msg ok';
       msg.textContent = get(DICT[currentLang], 'contact.fields.success');
       form.reset();
+      if (window.umami) umami.track('contact-form-submit');
     } else { throw new Error('bad status'); }
   } catch(err){
     msg.className = 'form-msg err';
     msg.textContent = get(DICT[currentLang], 'contact.fields.error');
+    if (window.umami) umami.track('contact-form-error');
   } finally { submit.disabled = false; }
 });
 
