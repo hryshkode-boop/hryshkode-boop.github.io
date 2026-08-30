@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Viacheslav Hryshko — IT Systems Electronics Technician & Laptop Repair</title>
   <meta name="description" content="IT systems electronics technician — laptop and PC repair, diagnostics, component-level service. 20+ years experience. BGA soldering, hardware diagnostics.">
-  
+
+  <!-- Favicon -->
+  <link rel="icon" href="/img/apple-touch-icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
   <!-- SEO: Canonical & Hreflang -->
   <link rel="canonical" href="https://hryshko.info/">
   <link rel="alternate" hreflang="uk" href="https://hryshko.info/?lang=uk">
@@ -389,6 +393,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
         </div>
         <div class="reveal">
           <form class="contact-form" id="contactForm" action="https://formspree.io/f/mljrzwev" method="POST">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
             <div class="field">
               <label for="cf-name" data-i18n="contact.fields.name">Name</label>
               <input id="cf-name" name="name" type="text" required>
@@ -985,11 +990,21 @@ function initMagnetic(){
 initMagnetic();
 
 // Contact form
+const cfLoadedAt = Date.now();
 document.getElementById('contactForm').addEventListener('submit', async (e)=>{
   e.preventDefault();
   const form = e.target;
   const msg = document.getElementById('cfMsg');
   const submit = document.getElementById('cfSubmit');
+
+  // Silent anti-bot checks: honeypot field filled, or form submitted too fast to be human.
+  if (form._gotcha.value || (Date.now() - cfLoadedAt) < 2500){
+    msg.className = 'form-msg ok';
+    msg.textContent = get(DICT[currentLang], 'contact.fields.success');
+    form.reset();
+    return;
+  }
+
   submit.disabled = true;
   msg.className = 'form-msg';
   msg.textContent = get(DICT[currentLang], 'contact.fields.sending');
