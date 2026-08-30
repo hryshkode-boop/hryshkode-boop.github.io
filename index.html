@@ -338,7 +338,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
         <p class="role" data-i18n="hero.roleLine">Automation engineering · CNC background · 20+ years in hardware repair</p>
         <p class="lede" data-i18n="hero.lead">Profile text.</p>
         <div class="hero-actions">
-          <a href="#" id="heroResumeDownload" class="btn btn-primary magnetic" download="Viacheslav_Hryshko_CV_EN.pdf" data-umami-event="download-cv" data-umami-event-language="en">
+          <a href="#" id="heroResumeDownload" class="btn btn-primary magnetic" download="Viacheslav_Hryshko_CV_EN.pdf">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0-4-4m4 4 4-4M5 21h14"/></svg>
             <span data-i18n-text="hero.ctaResume">Download CV</span>
           </a>
@@ -866,8 +866,38 @@ function setResumeHref(lang){
   button.href = cvUrl;
   const fileNames = { uk: 'Viacheslav_Hryshko_CV_UA.pdf', de: 'Viacheslav_Hryshko_CV_DE.pdf', en: 'Viacheslav_Hryshko_CV_EN.pdf' };
   button.download = fileNames[lang] || fileNames.en;
-  button.setAttribute('data-umami-event-language', lang);
 }
+
+// Umami's automatic click interception (via data-umami-event) programmatically
+// navigates with location.href, which does not honor the anchor's `download`
+// attribute in most browsers — the file opens instead of downloading. To keep
+// both a reliable download AND analytics, we handle the click manually: fetch
+// the PDF as a blob and trigger the save ourselves, then report the event.
+(function(){
+  const btn = document.getElementById('heroResumeDownload');
+  if (!btn) return;
+  btn.addEventListener('click', async function(e){
+    e.preventDefault();
+    const url = btn.getAttribute('href');
+    const filename = btn.getAttribute('download') || 'CV.pdf';
+    if (window.umami) umami.track('download-cv', { language: currentLang });
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('fetch failed: ' + res.status);
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const tempLink = document.createElement('a');
+      tempLink.href = blobUrl;
+      tempLink.download = filename;
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      tempLink.remove();
+      setTimeout(()=>URL.revokeObjectURL(blobUrl), 1000);
+    } catch (err) {
+      window.location.href = url;
+    }
+  });
+})();
 
 
 function applyStatic(lang){
