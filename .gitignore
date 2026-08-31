@@ -19,3 +19,6 @@ build/
 
 # Logs
 *.log
+
+# Prerender scratch files
+.build-*.html

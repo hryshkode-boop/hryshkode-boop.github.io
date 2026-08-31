@@ -1,0 +1,15 @@
+{
+  "name": "hryshko-info",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static multilingual portfolio site for hryshko.info",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check",
+    "serve": "node --run build && npx --yes serve ."
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}
