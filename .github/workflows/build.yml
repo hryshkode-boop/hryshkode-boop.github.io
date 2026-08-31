@@ -1,0 +1,49 @@
+name: Build multilingual pages
+
+# The site is authored in src/index.html; the per-language pages under /de/,
+# /en/ and /ua/ are generated. Regenerate them on every push so the committed
+# output can never drift from the source.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'tools/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+
+      - name: Commit regenerated pages
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html de en ua sitemap.xml
+          if git diff --staged --quiet; then
+            echo "Output already up to date."
+          else
+            git commit -m "build: regenerate multilingual pages"
+            git push
+          fi
