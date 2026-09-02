@@ -93,7 +93,7 @@ async function main() {
       LANGS.filter((l) => l.code !== lang.code).map((l) => `<meta property="og:locale:alternate" content="${l.ogLocale}">`).join('\n  '));
     out = out.replace('"url": "https://hryshko.info/",', `"url": "${ORIGIN}/${lang.dir}/",\n  "inLanguage": "${lang.code}",`);
 
-    outputs.set(path.join(lang.dir, 'index.html'), out);
+    outputs.set(path.join(lang.dir, 'index.html'), out.endsWith('\n') ? out : out + '\n');
   }
 
   await browser.close();

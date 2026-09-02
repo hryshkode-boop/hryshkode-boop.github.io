@@ -94,9 +94,9 @@
      ======================================================================= */
 
   /* --- КАРТИНКИ В РАЗДЕЛЕ «КАРЬЕРНЫЙ ПУТЬ» --- */
-  --tl-media-width:38%;        /* ширина картинки в строке. Меньше % = меньше картинка */
+  --tl-media-width:30%;        /* ширина картинки в строке. Меньше % = меньше картинка */
   --tl-media-ratio:16/9;       /* пропорции: 16/9 широкая, 4/3 ближе к квадрату, 1/1 квадрат */
-  --tl-media-zoom:1.35;        /* во сколько раз растёт при наведении курсора. 1 = не растёт */
+  --tl-media-zoom:1.15;        /* во сколько раз растёт при наведении курсора. 1 = не растёт */
   --tl-media-zoom-speed:.45s;  /* скорость роста. Больше = медленнее и плавнее */
 
   /* --- РАЗМЕРЫ ШРИФТОВ ---
@@ -122,8 +122,8 @@
   --fs-contact-value:.95rem;   /* телефон, e-mail, адрес */
 
   /* --- ПЛАВНОСТЬ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА --- */
-  --fade-out:.22s;             /* затухание перед уходом на другой язык */
-  --fade-in:.34s;              /* появление новой страницы */
+  --fade-out:.25s;             /* затухание перед уходом на другой язык */
+  --fade-in:.5s;               /* появление новой страницы */
 }
 *,*::before,*::after{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -280,7 +280,7 @@ section{padding:clamp(48px,7vh,72px) 0;}
   transition:transform var(--tl-media-zoom-speed) cubic-bezier(.16,1,.3,1), box-shadow var(--tl-media-zoom-speed) ease;}
 /* The whole thumbnail grows on hover, so a small default size stays readable
    on demand instead of forcing every image to be large all the time. */
-@media (hover:hover){.tmedia:hover,.tmedia:focus-within{transform:scale(var(--tl-media-zoom));box-shadow:var(--shadow-lg);z-index:6;}}
+@media (hover:hover){.tmedia:hover,.tmedia:focus-within{transform:scale(var(--tl-media-zoom));z-index:6;}}
 @media (prefers-reduced-motion:reduce){.tmedia,.tmedia:hover{transition:none;transform:none;}}
 .tmedia img{width:100%;height:100%;object-fit:cover;display:block;}
 .tmedia.mcarousel{cursor:pointer;}
