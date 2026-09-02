@@ -13,6 +13,21 @@
   <link rel="alternate" hreflang="uk" href="https://hryshko.info/ua/">
 <link rel="alternate" hreflang="x-default" href="https://hryshko.info/">
 <meta name="theme-color" content="#1c3f66">
+<style>html.forwarding body{visibility:hidden}</style>
+<script>
+// Runs before the body is parsed, so the visitor never sees this page flash by
+// on the way to their language. Without JavaScript the class is never set and
+// the language links below stay visible — which is also what crawlers get.
+(function(){
+  var map={de:'/de/',en:'/en/',uk:'/ua/',ru:'/ua/'};
+  var target=map[(navigator.language||'en').slice(0,2).toLowerCase()]||'/en/';
+  document.documentElement.className='forwarding';
+  // If the navigation has not happened shortly after, show the picker rather
+  // than leaving the visitor on a blank page.
+  setTimeout(function(){document.documentElement.className='';},1500);
+  location.replace(target);
+})();
+</script>
 <style>
 :root{--bg:#f6f7f9;--surface:#fff;--ink:#101827;--ink-soft:#4b5768;--line:rgba(16,24,39,.12);--accent:#1c3f66;--gold:#b8902e;--font:'Calibri','Carlito',-apple-system,"Segoe UI",sans-serif;}
 *{box-sizing:border-box}
@@ -37,13 +52,5 @@ nav a:hover{border-color:var(--gold);transform:translateY(-2px);}
       <a href="/ua/" hreflang="uk" lang="uk">Українська</a>
     </nav>
   </main>
-<script>
-// Forward to the visitor's language. Crawlers and no-JS visitors keep the links above.
-(function(){
-  var map={de:'/de/',en:'/en/',uk:'/ua/',ru:'/ua/'};
-  var nav=(navigator.language||'en').slice(0,2).toLowerCase();
-  location.replace(map[nav]||'/en/');
-})();
-</script>
 </body>
 </html>

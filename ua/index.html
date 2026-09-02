@@ -86,12 +86,56 @@
   --shadow:0 1px 2px rgba(16,24,39,.05), 0 14px 32px -16px rgba(16,24,39,.18);
   --shadow-lg:0 4px 8px rgba(16,24,39,.06), 0 30px 60px -20px rgba(16,24,39,.22);
   --font:'Calibri','Carlito',-apple-system,"Segoe UI",sans-serif;
+
+  /* =======================================================================
+     ПАНЕЛЬ НАСТРОЙКИ — меняйте значения только здесь.
+     Каждая строка подписана: что она делает и в какую сторону крутить.
+     После правки: git push, страницы пересоберутся сами.
+     ======================================================================= */
+
+  /* --- КАРТИНКИ В РАЗДЕЛЕ «КАРЬЕРНЫЙ ПУТЬ» --- */
+  --tl-media-width:38%;        /* ширина картинки в строке. Меньше % = меньше картинка */
+  --tl-media-ratio:16/9;       /* пропорции: 16/9 широкая, 4/3 ближе к квадрату, 1/1 квадрат */
+  --tl-media-zoom:1.35;        /* во сколько раз растёт при наведении курсора. 1 = не растёт */
+  --tl-media-zoom-speed:.45s;  /* скорость роста. Больше = медленнее и плавнее */
+
+  /* --- РАЗМЕРЫ ШРИФТОВ ---
+     clamp(минимум, гибкая часть, максимум) — размер сам подстраивается под
+     ширину экрана. Меняйте крайние значения; средняя часть — скорость роста. */
+  --fs-base:16px;                          /* базовый размер всего текста */
+  --fs-h1:clamp(2.5rem,5.4vw,4rem);        /* имя в шапке первого экрана */
+  --fs-h2:clamp(1.9rem,3.6vw,2.6rem);      /* заголовки разделов */
+  --fs-lede:1.05rem;                       /* вступительный абзац под именем */
+  --fs-nav:15.5px;                         /* пункты меню */
+
+  /* Раздел «Карьерный путь» */
+  --fs-tl-title:1.28rem;       /* название должности/этапа */
+  --fs-tl-year:13px;           /* год слева */
+  --fs-tl-meta:12px;           /* подпись под годом (компания, город) */
+  --fs-tl-text:.95rem;         /* пункты списка и описание */
+
+  /* Раздел «Про меня» */
+  --fs-about-title:1.05rem;    /* заголовки карточек «Профиль», «Опыт работы» */
+  --fs-about-text:.92rem;      /* текст внутри карточек */
+
+  /* Раздел «Контакты» */
+  --fs-contact-value:.95rem;   /* телефон, e-mail, адрес */
+
+  /* --- ПЛАВНОСТЬ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА --- */
+  --fade-out:.22s;             /* затухание перед уходом на другой язык */
+  --fade-in:.34s;              /* появление новой страницы */
 }
 *,*::before,*::after{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 #top,#about,#experience,#contact{scroll-margin-top:80px;}
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms!important;transition-duration:.001ms!important;} }
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:var(--fs-base);line-height:1.6;-webkit-font-smoothing:antialiased;
+  animation:page-in var(--fade-in) ease both;}
+/* Language switching navigates to another page; these two rules make the swap
+   read as a cross-fade instead of a hard cut. */
+@keyframes page-in{from{opacity:0}to{opacity:1}}
+body.is-leaving{opacity:0;transition:opacity var(--fade-out) ease;}
+@media (prefers-reduced-motion:reduce){body{animation:none}body.is-leaving{transition:none}}
 img{max-width:100%;display:block;}
 a{color:inherit;}
 button{font:inherit;}
@@ -119,9 +163,9 @@ svg{stroke-width:1.8;}
 /* ============ HEADER ============ */
 header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 86%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
 .site-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px;}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0;}
 .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0e2338);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0;}
-.brand-text{font-weight:800;font-size:16.5px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw;}
+.brand-text{font-weight:800;font-size:16.5px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw;min-width:0;}
 .brand-name{
   display:inline-block;
   background:linear-gradient(100deg, var(--ink) 40%, var(--gold) 46%, #ffffff 50%, var(--gold) 54%, var(--ink) 60%);
@@ -137,11 +181,11 @@ header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(-
 }
 .brand-text small{display:block;font-weight:500;font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 nav.primary{display:flex;align-items:center;gap:clamp(14px,2vw,28px);}
-nav.primary a{font-size:15.5px;font-weight:600;text-decoration:none;color:var(--ink-soft);position:relative;padding:6px 1px;transition:color .18s ease;}
+nav.primary a{font-size:var(--fs-nav);font-weight:600;text-decoration:none;color:var(--ink-soft);position:relative;padding:6px 1px;transition:color .18s ease;}
 nav.primary a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--gold));transition:right .25s cubic-bezier(.16,1,.3,1);}
 nav.primary a:hover{color:var(--ink);}
 nav.primary a:hover::after{right:0;}
-.header-right{display:flex;align-items:center;gap:14px;}
+.header-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .langs{display:flex;gap:4px;background:var(--surface-2);border-radius:999px;padding:3px;}
 .langs a{padding:8px 11px;border-radius:999px;border:none;background:transparent;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--ink-soft);text-decoration:none;display:flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease;opacity:.55;}
 .langs a:hover{transform:translateY(-1px);opacity:.85;}
@@ -175,9 +219,9 @@ nav.primary a:hover::after{right:0;}
 .status-dot{width:8px;height:8px;border-radius:50%;background:var(--good);position:relative;flex-shrink:0;}
 .status-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--good);animation:pulseDot 2.2s cubic-bezier(.4,0,.6,1) infinite;}
 @keyframes pulseDot{0%{transform:scale(.6);opacity:.9;}70%{transform:scale(1.8);opacity:0;}100%{opacity:0;}}
-.hero h1{font-size:clamp(2.5rem,5.4vw,4rem);margin-bottom:14px;}
+.hero h1{font-size:var(--fs-h1);margin-bottom:14px;}
 .hero .role{font-size:clamp(15px,1.6vw,17px);font-weight:600;color:var(--accent);margin-bottom:18px;}
-.hero .lede{margin-bottom:22px;font-size:1.05rem;}
+.hero .lede{margin-bottom:22px;font-size:var(--fs-lede);}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px;}
 .hero-stats{display:none;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;max-width:560px;}
 .hero-stat{background:var(--surface);padding:14px 12px;}
@@ -187,8 +231,9 @@ nav.primary a:hover::after{right:0;}
 /* ============ SECTION SHELL ============ */
 section{padding:clamp(48px,7vh,72px) 0;}
 .sec-head{margin-bottom:clamp(36px,5vw,52px);max-width:640px;}
-.sec-head h2{font-size:clamp(1.9rem,3.6vw,2.6rem);}
+.sec-head h2{font-size:var(--fs-h2);}
 #about .sec-head h2{font-size:clamp(1.1rem,3.4vw,2.6rem);white-space:nowrap;}
+@media (max-width:900px){ #about .sec-head h2{white-space:normal;} }
 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
 .reveal.in{opacity:1;transform:translateY(0);}
@@ -200,51 +245,55 @@ section{padding:clamp(48px,7vh,72px) 0;}
 @keyframes riseIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
 /* gradient-border card */
-.gcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,2.6vw,28px);transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;}
+.gcard{overflow-wrap:anywhere;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,2.6vw,28px);transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;}
 .gcard::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,var(--gold),var(--accent));-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s ease;pointer-events:none;}
 .gcard:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
 .gcard:hover::before{opacity:1;}
 
 /* ============ ABOUT / RESUME CARD ============ */
 .resume-blocks{display:flex;flex-direction:column;gap:20px;}
-.resume-blocks .gcard h4{display:flex;align-items:center;gap:10px;font-size:1.05rem;margin:0 0 16px;}
+.resume-blocks .gcard h4{display:flex;align-items:center;gap:10px;font-size:var(--fs-about-title);margin:0 0 16px;}
 .resume-blocks .gcard h4 .icon{color:var(--accent);width:20px;height:20px;}
 .resume-exp-item{padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--line);}
 .resume-exp-item:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none;}
 .resume-exp-item h5{font-size:1.02rem;margin:0 0 6px;font-weight:800;}
-.resume-exp-item ul{margin:8px 0 0;padding-left:18px;color:var(--ink-soft);font-size:.92rem;}
+.resume-exp-item ul{margin:8px 0 0;padding-left:18px;color:var(--ink-soft);font-size:var(--fs-about-text);}
 .resume-exp-item li{margin-bottom:4px;}
-.resume-exp-item .entry-body{color:var(--ink-soft);font-size:.92rem;margin:6px 0 0;}
+.resume-exp-item .entry-body{color:var(--ink-soft);font-size:var(--fs-about-text);margin:6px 0 0;}
 
 /* ============ EXPERIENCE / TIMELINE ============ */
 .timeline{position:relative;display:flex;flex-direction:column;}
 .timeline::before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--gold),var(--accent) 75%,transparent);}
-.trow{position:relative;display:grid;grid-template-columns:38px 1fr;column-gap:clamp(20px,3vw,32px);padding-bottom:20px;}
+.trow{position:relative;display:grid;grid-template-columns:38px minmax(0,1fr);column-gap:clamp(20px,3vw,32px);padding-bottom:20px;}
 .trow:last-child{padding-bottom:0;}
 .tnode{position:relative;width:32px;height:32px;border-radius:50%;background:var(--surface);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px var(--bg);}
 .tnode::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--gold);}
-.tbody{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,3vw,36px);align-items:start;}
-.tyear{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px;font-variant-numeric:tabular-nums;}
-.tbody h3{font-size:1.28rem;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.tbody{display:grid;grid-template-columns:minmax(0,1fr) var(--tl-media-width);gap:clamp(20px,3vw,36px);align-items:start;}
+.tyear{font-size:var(--fs-tl-year);font-weight:700;color:var(--accent);margin-bottom:6px;font-variant-numeric:tabular-nums;}
+.tbody h3{overflow-wrap:anywhere;font-size:var(--fs-tl-title);margin-bottom:6px;display:flex;align-items:center;gap:10px;}
 .tbody h3 .icon{color:var(--accent);width:20px;height:20px;flex-shrink:0;}
-.tmeta{font-size:12px;font-weight:600;color:var(--ink-faint);margin-bottom:10px;text-transform:uppercase;letter-spacing:.03em;}
-.tbody ul{margin:10px 0 0;padding-left:18px;color:var(--ink-soft);font-size:.95rem;}
+.tmeta{font-size:var(--fs-tl-meta);font-weight:600;color:var(--ink-faint);margin-bottom:10px;text-transform:uppercase;letter-spacing:.03em;}
+.tbody ul{margin:10px 0 0;padding-left:18px;color:var(--ink-soft);font-size:var(--fs-tl-text);}
 .tbody li{margin-bottom:5px;}
-.tbody .entry-body{color:var(--ink-soft);font-size:.96rem;margin:8px 0 0;}
-.tmedia{position:relative;aspect-ratio:16/9;}
-.tmedia img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,1,.3,1);}
-.tmedia:hover img{transform:scale(1.05);}
+.tbody .entry-body{color:var(--ink-soft);font-size:var(--fs-tl-text);margin:8px 0 0;}
+.tmedia{position:relative;aspect-ratio:var(--tl-media-ratio);border-radius:var(--radius-sm);overflow:hidden;
+  transition:transform var(--tl-media-zoom-speed) cubic-bezier(.16,1,.3,1), box-shadow var(--tl-media-zoom-speed) ease;}
+/* The whole thumbnail grows on hover, so a small default size stays readable
+   on demand instead of forcing every image to be large all the time. */
+@media (hover:hover){.tmedia:hover,.tmedia:focus-within{transform:scale(var(--tl-media-zoom));box-shadow:var(--shadow-lg);z-index:6;}}
+@media (prefers-reduced-motion:reduce){.tmedia,.tmedia:hover{transition:none;transform:none;}}
+.tmedia img{width:100%;height:100%;object-fit:cover;display:block;}
 .tmedia.mcarousel{cursor:pointer;}
 .tdots{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);display:flex;gap:5px;z-index:2;}
 .tdots span{width:5px;height:5px;border-radius:50%;background:var(--ink-faint);opacity:.45;transition:opacity .2s ease,background .2s ease;}
 .tdots span.active{opacity:1;background:var(--gold);}
 @media (max-width:760px){
-  .tbody{grid-template-columns:1fr;}
-  .tmedia{aspect-ratio:16/9;}
+  .tbody{grid-template-columns:minmax(0,1fr);}
+  .tmedia{aspect-ratio:var(--tl-media-ratio);}
 }
 @media (max-width:520px){
   .timeline::before{left:11px;}
-  .trow{grid-template-columns:22px 1fr;column-gap:16px;}
+  .trow{grid-template-columns:22px minmax(0,1fr);column-gap:16px;}
   .tnode{width:22px;height:22px;}
   .tnode::after{width:7px;height:7px;}
 }
@@ -264,7 +313,7 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .contact-list a:hover .ico{background:var(--gold-soft);box-shadow:0 0 0 1px rgba(184,144,46,.35);}
 .contact-list .ico .icon{width:16px;height:16px;color:var(--accent);}
 .contact-list .label{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);font-weight:700;display:block;margin-bottom:2px;}
-.contact-list .value{font-weight:600;font-size:.95rem;}
+.contact-list .value{font-weight:600;font-size:var(--fs-contact-value);}
 .social-row{display:flex;gap:10px;margin-top:26px;}
 .social-row a{width:42px;height:42px;border-radius:12px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);transition:transform .22s cubic-bezier(.16,1,.3,1), background .22s ease, color .22s ease, box-shadow .22s ease;}
 .social-row a:hover{transform:translateY(-3px);background:var(--accent);color:#fff;box-shadow:0 10px 22px -10px rgba(28,63,102,.6), 0 0 16px -4px rgba(184,144,46,.5);}
@@ -302,6 +351,10 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
 }
 @media (max-width:420px){
   .brand-text small{display:none;}
+  .site-inner{gap:10px;}
+  .brand-text{max-width:none;}
+  .langs{padding:2px;gap:2px;}
+  .langs a{padding:7px 8px;}
 }
 @media (max-width:640px){
   .hero-stats{grid-template-columns:repeat(2,1fr);}
@@ -464,7 +517,7 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
     <div class="wrap">
       <div class="sec-head reveal" style="margin-bottom:36px;">
         <p class="eyebrow" data-i18n="contact.eyebrow">Зв'язок</p>
-        <h2 data-i18n="contact.title">Поговорімо</h2>
+        <h2 data-i18n="contact.title">Буду радий вашому повідомленню</h2>
       </div>
       <div class="contact-grid">
         <div class="reveal">
@@ -665,7 +718,7 @@ const DICT = {
   },
   "contact": {
     "eyebrow": "Зв'язок",
-    "title": "Поговорімо",
+    "title": "Буду радий вашому повідомленню",
     "fields": { "name": "Ім'я", "email": "Email", "message": "Повідомлення", "submit": "Відправити", "sending": "Надсилання…", "success": "Дякую! Повідомлення надіслано.", "error": "Щось пішло не так. Спробуйте ще раз або напишіть на email." },
     "info": [
       { "icon": "mail", "label": "Email", "value": "HryshkoDe@gmail.com", "href": "mailto:HryshkoDe@gmail.com" },
@@ -779,7 +832,7 @@ const DICT = {
   },
   "contact": {
     "eyebrow": "Get in touch",
-    "title": "Let's talk",
+    "title": "I look forward to hearing from you",
     "fields": { "name": "Name", "email": "Email", "message": "Message", "submit": "Send", "sending": "Sending…", "success": "Thank you! Your message has been sent.", "error": "Something went wrong. Please try again or write directly to the email above." },
     "info": [
       { "icon": "mail", "label": "Email", "value": "HryshkoDe@gmail.com", "href": "mailto:HryshkoDe@gmail.com" },
@@ -893,7 +946,7 @@ const DICT = {
   },
   "contact": {
     "eyebrow": "Kontakt",
-    "title": "Sprechen wir",
+    "title": "Ich freue mich auf Ihre Nachricht",
     "fields": { "name": "Name", "email": "E-Mail", "message": "Nachricht", "submit": "Senden", "sending": "Wird gesendet…", "success": "Danke! Ihre Nachricht wurde gesendet.", "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie direkt an die obige E-Mail." },
     "info": [
       { "icon": "mail", "label": "E-Mail", "value": "HryshkoDe@gmail.com", "href": "mailto:HryshkoDe@gmail.com" },
@@ -1087,8 +1140,23 @@ function applyStatic(lang){
 // when the visitor is already on that language.
 document.getElementById('langSwitch').addEventListener('click', e=>{
   const link = e.target.closest('a[data-lang]');
-  if (link && link.dataset.lang === currentLang) e.preventDefault();
+  if (!link) return;
+  if (link.dataset.lang === currentLang){ e.preventDefault(); return; }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Fade the current page out, then navigate. The incoming page fades itself in
+  // via the page-in animation, so the two halves read as one cross-fade.
+  e.preventDefault();
+  const href = link.getAttribute('href');
+  document.body.classList.add('is-leaving');
+  let navigated = false;
+  const go = ()=> { if (navigated) return; navigated = true; location.href = href; };
+  document.body.addEventListener('transitionend', ev=>{ if (ev.propertyName === 'opacity') go(); }, { once:true });
+  setTimeout(go, 400); // safety net if transitionend never fires
 });
+
+// Coming back via the browser's Back button restores the page from cache with
+// the fade-out class still on it — clear it so the page is not left blank.
+window.addEventListener('pageshow', ()=> document.body.classList.remove('is-leaving'));
 document.getElementById('burger').addEventListener('click', ()=>{
   document.getElementById('primaryNav').classList.toggle('open');
 });
