@@ -99,6 +99,14 @@
   --tl-media-zoom:1.15;        /* во сколько раз растёт при наведении курсора. 1 = не растёт */
   --tl-media-zoom-speed:.45s;  /* скорость роста. Больше = медленнее и плавнее */
 
+  /* --- ФОТО НА ПЕРВОМ ЭКРАНЕ --- */
+  --hero-scale:1;              /* увеличение фото. 1 = без увеличения, 1.1 = крупнее.
+                                  Больше 1 обрезает фото по краям — от этого срезается голова */
+  --hero-focus-y:8%;           /* что показывать по вертикали. Меньше % = видно больше верха */
+  --hero-focus-x:62%;          /* что показывать по горизонтали */
+  --hero-shift-x:25%;          /* сдвиг фото вправо от левого края */
+  --hero-parallax:55px;        /* насколько фото сползает при прокрутке. 0 = выключить */
+
   /* --- РАЗМЕРЫ ШРИФТОВ ---
      clamp(минимум, гибкая часть, максимум) — размер сам подстраивается под
      ширину экрана. Меняйте крайние значения; средняя часть — скорость роста. */
@@ -203,7 +211,7 @@ nav.primary a:hover::after{right:0;}
   padding:clamp(88px,12vh,120px) 0 clamp(48px,7vh,72px);
 }
 .hero-bg{position:absolute;inset:0;z-index:0;}
-.hero-bg img{position:absolute;top:0;left:25%;width:100%;height:100%;object-fit:cover;object-position:62% 15%;transform:scale(1.05);}
+.hero-bg img{position:absolute;top:0;left:var(--hero-shift-x);width:100%;height:100%;object-fit:cover;object-position:var(--hero-focus-x) var(--hero-focus-y);transform:scale(var(--hero-scale));}
 .hero-bg::before{
   content:"";position:absolute;inset:0;
   background:linear-gradient(90deg, var(--bg) 0px, var(--bg) 760px, transparent 1080px);
@@ -1241,9 +1249,13 @@ document.getElementById('contactForm').addEventListener('submit', async (e)=>{
   if (!heroImg) return;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) return;
+  const styles = getComputedStyle(document.documentElement);
+  const scale = styles.getPropertyValue('--hero-scale').trim() || '1';
+  const maxShift = parseFloat(styles.getPropertyValue('--hero-parallax')) || 0;
+  if (!maxShift) return;
   window.addEventListener('scroll', ()=>{
-    const shift = Math.min(window.scrollY * 0.35, 90);
-    heroImg.style.transform = `scale(1.05) translateY(${shift}px)`;
+    const shift = Math.min(window.scrollY * 0.35, maxShift);
+    heroImg.style.transform = `scale(${scale}) translateY(${shift}px)`;
   }, { passive: true });
 })();
 </script>
