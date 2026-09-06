@@ -2,8 +2,8 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Viacheslav Hryshko — IT Systems Electronics Technician</title>
-  <meta name="description" content="Laptop and PC repair, component-level diagnostics, BGA soldering, data recovery. 20+ years of experience.">
+  <title>IT Systems Electronics Technician, Bavaria — V. Hryshko</title>
+  <meta name="description" content="IT systems electronics technician in Bavaria: laptop and PC repair, component-level diagnostics, BGA soldering. 20+ years of experience.">
   <meta name="author" content="Viacheslav Hryshko">
   <meta name="theme-color" content="#1c3f66">
 
@@ -30,8 +30,8 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Viacheslav Hryshko">
-  <meta property="og:title" content="Viacheslav Hryshko — IT Systems Electronics Technician">
-  <meta property="og:description" content="Laptop and PC repair, component-level diagnostics, BGA soldering, data recovery. 20+ years of experience.">
+  <meta property="og:title" content="IT Systems Electronics Technician, Bavaria — V. Hryshko">
+  <meta property="og:description" content="IT systems electronics technician in Bavaria: laptop and PC repair, component-level diagnostics, BGA soldering. 20+ years of experience.">
   <meta property="og:image" content="https://hryshko.info/img/hero.webp">
   <meta property="og:url" content="https://hryshko.info/en/">
   <meta property="og:locale" content="en_US">
@@ -40,8 +40,8 @@
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Viacheslav Hryshko — IT Systems Electronics Technician">
-  <meta name="twitter:description" content="Laptop and PC repair, component-level diagnostics, BGA soldering, data recovery. 20+ years of experience.">
+  <meta name="twitter:title" content="IT Systems Electronics Technician, Bavaria — V. Hryshko">
+  <meta name="twitter:description" content="IT systems electronics technician in Bavaria: laptop and PC repair, component-level diagnostics, BGA soldering. 20+ years of experience.">
   <meta name="twitter:image" content="https://hryshko.info/img/hero.webp">
   <meta name="twitter:creator" content="@hryshkode">
   
@@ -98,6 +98,14 @@
   --tl-media-ratio:16/9;       /* пропорции: 16/9 широкая, 4/3 ближе к квадрату, 1/1 квадрат */
   --tl-media-zoom:1.15;        /* во сколько раз растёт при наведении курсора. 1 = не растёт */
   --tl-media-zoom-speed:.45s;  /* скорость роста. Больше = медленнее и плавнее */
+
+  /* --- ФОТО НА ПЕРВОМ ЭКРАНЕ --- */
+  --hero-scale:1;              /* увеличение фото. 1 = без увеличения, 1.1 = крупнее.
+                                  Больше 1 обрезает фото по краям — от этого срезается голова */
+  --hero-focus-y:8%;           /* что показывать по вертикали. Меньше % = видно больше верха */
+  --hero-focus-x:62%;          /* что показывать по горизонтали */
+  --hero-shift-x:25%;          /* сдвиг фото вправо от левого края */
+  --hero-parallax:55px;        /* насколько фото сползает при прокрутке. 0 = выключить */
 
   /* --- РАЗМЕРЫ ШРИФТОВ ---
      clamp(минимум, гибкая часть, максимум) — размер сам подстраивается под
@@ -203,7 +211,7 @@ nav.primary a:hover::after{right:0;}
   padding:clamp(88px,12vh,120px) 0 clamp(48px,7vh,72px);
 }
 .hero-bg{position:absolute;inset:0;z-index:0;}
-.hero-bg img{position:absolute;top:0;left:25%;width:100%;height:100%;object-fit:cover;object-position:62% 15%;transform:scale(1.05);}
+.hero-bg img{position:absolute;top:0;left:var(--hero-shift-x);width:100%;height:100%;object-fit:cover;object-position:var(--hero-focus-x) var(--hero-focus-y);transform:scale(var(--hero-scale));}
 .hero-bg::before{
   content:"";position:absolute;inset:0;
   background:linear-gradient(90deg, var(--bg) 0px, var(--bg) 760px, transparent 1080px);
@@ -314,6 +322,16 @@ section{padding:clamp(48px,7vh,72px) 0;}
 .contact-list .ico .icon{width:16px;height:16px;color:var(--accent);}
 .contact-list .label{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);font-weight:700;display:block;margin-bottom:2px;}
 .contact-list .value{font-weight:600;font-size:var(--fs-contact-value);}
+/* mailto:/tel: silently do nothing when the visitor has no mail app or is on a
+   desktop — so a click also copies the value and says so. */
+.contact-list a{position:relative;}
+.contact-list a::after{
+  content:attr(data-copied);position:absolute;right:8px;top:50%;transform:translateY(-50%) scale(.96);
+  font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--good);
+  background:var(--surface);border:1px solid var(--good);border-radius:999px;padding:4px 10px;
+  opacity:0;pointer-events:none;transition:opacity .18s ease, transform .18s ease;
+}
+.contact-list a.is-copied::after{opacity:1;transform:translateY(-50%) scale(1);}
 .social-row{display:flex;gap:10px;margin-top:26px;}
 .social-row a{width:42px;height:42px;border-radius:12px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);transition:transform .22s cubic-bezier(.16,1,.3,1), background .22s ease, color .22s ease, box-shadow .22s ease;}
 .social-row a:hover{transform:translateY(-3px);background:var(--accent);color:#fff;box-shadow:0 10px 22px -10px rgba(28,63,102,.6), 0 0 16px -4px rgba(184,144,46,.5);}
@@ -522,22 +540,22 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
       <div class="contact-grid">
         <div class="reveal">
           <ul class="contact-list" id="contactList">
-    <a href="mailto:HryshkoDe@gmail.com">
+    <a href="mailto:HryshkoDe@gmail.com" data-copied="copied">
       <span class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></span>
       <span><span class="label">Email</span><span class="value">HryshkoDe@gmail.com</span></span>
     </a>
   
-    <a href="tel:+4915125888782">
+    <a href="tel:+4915125888782" data-copied="copied">
       <span class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.5 2.1L8 10.1a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c1 .4 2 .6 3 .7a2 2 0 0 1 1.6 2Z"></path></svg></span>
       <span><span class="label">Phone (Germany)</span><span class="value">+49 1512 5888782</span></span>
     </a>
   
-    <a href="tel:+380737005070">
+    <a href="tel:+380737005070" data-copied="copied">
       <span class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.5 2.1L8 10.1a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c1 .4 2 .6 3 .7a2 2 0 0 1 1.6 2Z"></path></svg></span>
       <span><span class="label">Phone (Ukraine)</span><span class="value">+38 073 700 50 70</span></span>
     </a>
   
-    <a href="https://www.google.com/maps/search/?api=1&amp;query=Prien+am+Chiemsee" target="_blank" rel="noopener">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Prien+am+Chiemsee" target="_blank" rel="noopener" data-copied="copied">
       <span class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
       <span><span class="label">Address</span><span class="value">Prien am Chiemsee, Germany</span></span>
     </a>
@@ -624,7 +642,7 @@ const ICONS = {
 const DICT = {
 "uk": {
   "name": "Вячеслав Гришко",
-  "meta": { "title": "Viacheslav Hryshko — IT-системний електронік", "description": "Ремонт та діагностика ноутбуків і ПК. Компонентний ремонт, BGA-пайка, відновлення даних. 20+ років досвіду." },
+  "meta": { "title": "IT-системний електронік, Баварія — Вячеслав Гришко", "description": "IT-системний електронік у Баварії: ремонт та діагностика ноутбуків і ПК, компонентний ремонт, BGA-пайка, відновлення даних. 20+ років досвіду." },
   "nav": { "home": "Головна", "about": "Про мене", "achievements": "Кар'єрний шлях", "contact": "Контакти" },
   "hero": {
     "eyebrow": "",
@@ -718,6 +736,7 @@ const DICT = {
   },
   "contact": {
     "eyebrow": "Зв'язок",
+    "copied": "скопійовано",
     "title": "Буду радий вашому повідомленню",
     "fields": { "name": "Ім'я", "email": "Email", "message": "Повідомлення", "submit": "Відправити", "sending": "Надсилання…", "success": "Дякую! Повідомлення надіслано.", "error": "Щось пішло не так. Спробуйте ще раз або напишіть на email." },
     "info": [
@@ -738,7 +757,7 @@ const DICT = {
 
 "en": {
   "name": "Viacheslav Hryshko",
-  "meta": { "title": "Viacheslav Hryshko — IT Systems Electronics Technician", "description": "Laptop and PC repair, component-level diagnostics, BGA soldering, data recovery. 20+ years of experience." },
+  "meta": { "title": "IT Systems Electronics Technician, Bavaria — V. Hryshko", "description": "IT systems electronics technician in Bavaria: laptop and PC repair, component-level diagnostics, BGA soldering. 20+ years of experience." },
   "nav": { "home": "Home", "about": "About", "achievements": "Background", "contact": "Contact" },
   "hero": {
     "eyebrow": "",
@@ -832,6 +851,7 @@ const DICT = {
   },
   "contact": {
     "eyebrow": "Get in touch",
+    "copied": "copied",
     "title": "I look forward to hearing from you",
     "fields": { "name": "Name", "email": "Email", "message": "Message", "submit": "Send", "sending": "Sending…", "success": "Thank you! Your message has been sent.", "error": "Something went wrong. Please try again or write directly to the email above." },
     "info": [
@@ -852,7 +872,7 @@ const DICT = {
 
 "de": {
   "name": "Viacheslav Hryshko",
-  "meta": { "title": "Viacheslav Hryshko — IT-Systemelektroniker", "description": "Notebook- und PC-Reparatur, Fehlerdiagnose auf Bauteilebene, BGA-Löttechnik, Datenrettung. Über 20 Jahre Erfahrung." },
+  "meta": { "title": "IT-Systemelektroniker Prien am Chiemsee — Viacheslav Hryshko", "description": "IT-Systemelektroniker im Landkreis Rosenheim: Notebook- und PC-Reparatur, Fehlerdiagnose auf Bauteilebene, BGA-Löttechnik. Über 20 Jahre Erfahrung." },
   "nav": { "home": "Start", "about": "Über mich", "achievements": "Werdegang", "contact": "Kontakt" },
   "hero": {
     "eyebrow": "",
@@ -946,6 +966,7 @@ const DICT = {
   },
   "contact": {
     "eyebrow": "Kontakt",
+    "copied": "kopiert",
     "title": "Ich freue mich auf Ihre Nachricht",
     "fields": { "name": "Name", "email": "E-Mail", "message": "Nachricht", "submit": "Senden", "sending": "Wird gesendet…", "success": "Danke! Ihre Nachricht wurde gesendet.", "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie direkt an die obige E-Mail." },
     "info": [
@@ -1117,7 +1138,7 @@ function applyStatic(lang){
 
   // Contact list
   document.getElementById('contactList').innerHTML = d.contact.info.map(c=>`
-    <a href="${c.href}" ${c.href.startsWith('http')?'target="_blank" rel="noopener"':''}>
+    <a href="${c.href}" ${c.href.startsWith('http')?'target="_blank" rel="noopener"':''} data-copied="${escAttr(get(d,'contact.copied'))}">
       <span class="ico">${ICONS[c.icon]}</span>
       <span><span class="label">${c.label}</span><span class="value">${c.value}</span></span>
     </a>
@@ -1138,6 +1159,22 @@ function applyStatic(lang){
 // Language switching is a navigation, not an in-page swap: each language lives at
 // its own indexable URL. The anchors work without JS; this only skips the reload
 // when the visitor is already on that language.
+// A mailto:/tel: link is a dead end for anyone without a mail client or dialler —
+// the browser does nothing and the click looks broken. Copying the value as well
+// means the click always produces something useful; the link itself still works
+// wherever the handler exists.
+document.getElementById('contactList').addEventListener('click', e=>{
+  const link = e.target.closest('a[href^="mailto:"], a[href^="tel:"]');
+  if (!link || !navigator.clipboard) return;
+  const value = link.querySelector('.value')?.textContent.trim();
+  if (!value) return;
+  navigator.clipboard.writeText(value).then(()=>{
+    clearTimeout(link._copyTimer);
+    link.classList.add('is-copied');
+    link._copyTimer = setTimeout(()=> link.classList.remove('is-copied'), 2000);
+  }).catch(()=>{});
+});
+
 document.getElementById('langSwitch').addEventListener('click', e=>{
   const link = e.target.closest('a[data-lang]');
   if (!link) return;
@@ -1241,9 +1278,13 @@ document.getElementById('contactForm').addEventListener('submit', async (e)=>{
   if (!heroImg) return;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) return;
+  const styles = getComputedStyle(document.documentElement);
+  const scale = styles.getPropertyValue('--hero-scale').trim() || '1';
+  const maxShift = parseFloat(styles.getPropertyValue('--hero-parallax')) || 0;
+  if (!maxShift) return;
   window.addEventListener('scroll', ()=>{
-    const shift = Math.min(window.scrollY * 0.35, 90);
-    heroImg.style.transform = `scale(1.05) translateY(${shift}px)`;
+    const shift = Math.min(window.scrollY * 0.35, maxShift);
+    heroImg.style.transform = `scale(${scale}) translateY(${shift}px)`;
   }, { passive: true });
 })();
 </script>
