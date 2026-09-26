@@ -62,13 +62,40 @@ async function main() {
     await writeFile(tmp, html);
 
     const page = await browser.newPage();
-    // Third-party scripts must not end up baked into the output.
+    // Blocking analytics outright hid a real bug once: code guarded by
+    // `if (window.umami)` never ran during the build, so a ReferenceError inside
+    // it went unnoticed. Serve a stub instead, and treat any page error as fatal.
+    const pageErrors = [];
+    page.on('pageerror', (err) => pageErrors.push(String(err)));
+    // Define the stub before any page script runs. The real tag is deferred, so
+    // serving it through the route alone leaves `if (window.umami)` branches
+    // unexecuted during the build — which is exactly how a ReferenceError inside
+    // one of them slipped through. This forces the worst case: analytics present.
+    await page.addInitScript(() => { window.umami = { track() {} }; });
     await page.route('**/*', (route) => {
       const url = route.request().url();
-      return url.startsWith('file://') ? route.continue() : route.abort();
+      if (url.startsWith('file://')) return route.continue();
+      if (url.includes('umami')) {
+        return route.fulfill({ status: 200, contentType: 'application/javascript',
+          body: 'window.umami={track:function(){}};' });
+      }
+      return route.abort();
     });
     await page.goto(pathToFileURL(tmp).href, { waitUntil: 'load' });
-    await page.waitForFunction(() => document.getElementById('timelineList')?.children.length > 0);
+    // A script error stops the render, so this would otherwise fail as a bare
+    // 30s timeout. Report the actual cause instead.
+    try {
+      await page.waitForFunction(() => document.getElementById('timelineList')?.children.length > 0, null, { timeout: 15000 });
+    } catch (err) {
+      if (pageErrors.length) {
+        throw new Error(`${lang.dir}: the page raised an error, so it never rendered — ${pageErrors.join(' | ')}`);
+      }
+      throw err;
+    }
+
+    if (pageErrors.length) {
+      throw new Error(`${lang.dir}: the page raised ${pageErrors.length} error(s) — ${pageErrors.join(' | ')}`);
+    }
 
     const dict = await readDict(page);
     const d = dict[lang.code];

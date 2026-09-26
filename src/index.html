@@ -29,6 +29,11 @@
      This sits in the head, independent of the main script, so a failure there
      cannot cost the pageview. */
   (function(){
+    // Headless browsers set navigator.webdriver. Analytics showed 60% of
+    // "visitors" coming from cloud data-centre regions with almost no mobile
+    // share — preview crawlers and scanners, not people. This drops the ones
+    // that identify themselves; the rest still need reading with judgement.
+    if (navigator.webdriver) return;
     var referrer = document.referrer;
     try{
       var passed = new URLSearchParams(location.search).get('r');
@@ -544,6 +549,9 @@ footer.site{background:#0e1621;color:rgba(255,255,255,.7);padding:40px 0 26px;}
 </footer>
 
 <script>
+// Analytics is skipped for automated browsers — see the note in the head.
+function canTrack(){ return !navigator.webdriver && !!window.umami; }
+
 const IMAGES = {
   certificateB1_1: "/img/1.webp",
   diploma2026_1: "/img/2.webp",
@@ -995,7 +1003,7 @@ function setResumeHref(lang){
     e.preventDefault();
     const url = btn.getAttribute('href');
     const filename = btn.getAttribute('download') || 'CV.pdf';
-    if (window.umami) umami.track('download-cv', { language: currentLang });
+    if (canTrack()) umami.track('download-cv', { language: currentLang });
     try {
       const res = await fetch(url);
       if (!res.ok) throw new Error('fetch failed: ' + res.status);
@@ -1105,7 +1113,7 @@ document.getElementById('contactList').addEventListener('click', e=>{
     clearTimeout(link._copyTimer);
     link.classList.add('is-copied');
     link._copyTimer = setTimeout(()=> link.classList.remove('is-copied'), 2000);
-    if (window.umami) umami.track('copy-contact', {
+    if (canTrack()) umami.track('copy-contact', {
       kind: link.getAttribute('href').startsWith('mailto:') ? 'email' : 'phone',
       language: currentLang
     });
@@ -1116,7 +1124,7 @@ document.getElementById('langSwitch').addEventListener('click', e=>{
   const link = e.target.closest('a[data-lang]');
   if (!link) return;
   if (link.dataset.lang === currentLang){ e.preventDefault(); return; }
-  if (window.umami) umami.track('switch-language', { from: currentLang, to: link.dataset.lang });
+  if (canTrack()) umami.track('switch-language', { from: currentLang, to: link.dataset.lang });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   // Fade the current page out, then navigate. The incoming page fades itself in
   // via the page-in animation, so the two halves read as one cross-fade.
@@ -1150,7 +1158,6 @@ function observeReveals(){
 
 // Magnetic buttons
 function initMagnetic(){
-  if (window.umami) umami.track('switch-language', { from: currentLang, to: link.dataset.lang });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.matchMedia('(hover: none)').matches) return;
   document.addEventListener('mousemove', (e)=>{
@@ -1196,12 +1203,12 @@ document.getElementById('contactForm').addEventListener('submit', async (e)=>{
       msg.className = 'form-msg ok';
       msg.textContent = get(DICT[currentLang], 'contact.fields.success');
       form.reset();
-      if (window.umami) umami.track('contact-form-submit');
+      if (canTrack()) umami.track('contact-form-submit');
     } else { throw new Error('bad status'); }
   } catch(err){
     msg.className = 'form-msg err';
     msg.textContent = get(DICT[currentLang], 'contact.fields.error');
-    if (window.umami) umami.track('contact-form-error');
+    if (canTrack()) umami.track('contact-form-error');
   } finally { submit.disabled = false; }
 });
 
