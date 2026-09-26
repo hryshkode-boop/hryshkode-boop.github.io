@@ -20,7 +20,39 @@
 // the language links below stay visible — which is also what crawlers get.
 (function(){
   var map={de:'/de/',en:'/en/',uk:'/ua/',ru:'/ua/'};
-  var target=map[(navigator.language||'en').slice(0,2).toLowerCase()]||'/en/';
+  // Browser language alone sends every visitor with an English UI to /en/, and a
+  // great many people in Germany run their system in English — analytics showed
+  // /en/ getting twice the traffic of /de/ on a site aimed at German employers.
+  // The time zone says where someone is, which the interface language does not,
+  // so a German-speaking zone picks the German page. The switcher is in the
+  // header either way, one click from the English version.
+  // Plain lists, not regexes: a backslash inside this template literal is eaten
+  // before it reaches the page, which silently breaks the expression.
+  var deZones = ['Europe/Berlin','Europe/Vienna','Europe/Zurich','Europe/Busingen'];
+  var uaZones = ['Europe/Kyiv','Europe/Kiev','Europe/Uzhgorod','Europe/Zaporozhye'];
+  var byZone = '';
+  try{
+    var tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+    if (deZones.indexOf(tz) !== -1) byZone = '/de/';
+    else if (uaZones.indexOf(tz) !== -1) byZone = '/ua/';
+  }catch(e){}
+  var langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'en'];
+  var byLang = '';
+  for (var i = 0; i < langs.length && !byLang; i++){
+    byLang = map[String(langs[i]).slice(0,2).toLowerCase()] || '';
+  }
+  // An English interface is usually a default rather than a decision — that is
+  // exactly why /en/ was collecting visitors who live in Germany — so location
+  // outranks it. Someone who picked German or Ukrainian meant it, and keeps it.
+  var deliberate = byLang && byLang !== '/en/';
+  var target = deliberate ? byLang : (byZone || byLang || '/en/');
+  // This page becomes the referrer of the page it forwards to, which would hide
+  // where the visitor actually came from. Carry the original referrer across in
+  // the URL — the language page reads it, reports it and cleans the address bar.
+  // Deliberately not sessionStorage: the privacy policy states that no storage
+  // is used, and that has to stay true.
+  var ref = document.referrer;
+  if (ref && ref.indexOf(location.origin) !== 0) target += '?r=' + encodeURIComponent(ref);
   document.documentElement.className='forwarding';
   // If the navigation has not happened shortly after, show the picker rather
   // than leaving the visitor on a blank page.

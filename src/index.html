@@ -18,7 +18,34 @@
   <link rel="dns-prefetch" href="https://formspree.io">
 
   <!-- Analytics: Umami — cookieless, no personal data stored (see /datenschutz.html §5) -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="c3b1df9d-fc8f-4b41-9734-3026749142fa"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="c3b1df9d-fc8f-4b41-9734-3026749142fa" data-auto-track="false"></script>
+  <script>
+  /* The root page forwards visitors to their language, which makes the root the
+     referrer and hides where they actually came from — every search visit would
+     look like internal traffic. The root passes the original referrer in ?r=;
+     report that, then strip the parameter from the address bar. Deliberately not
+     sessionStorage: the privacy policy states no storage is used.
+     Auto-tracking is off so exactly one pageview is sent, with the right source.
+     This sits in the head, independent of the main script, so a failure there
+     cannot cost the pageview. */
+  (function(){
+    var referrer = document.referrer;
+    try{
+      var passed = new URLSearchParams(location.search).get('r');
+      if (passed){
+        referrer = passed;
+        history.replaceState(null, '', location.pathname + location.hash);
+      }
+    }catch(e){}
+    var tries = 0;
+    var timer = setInterval(function(){
+      if (window.umami){
+        clearInterval(timer);
+        try{ umami.track(function(props){ props.referrer = referrer; return props; }); }catch(e){}
+      } else if (++tries > 40) clearInterval(timer); // ~4s, then assume it is blocked
+    }, 100);
+  })();
+  </script>
 
   <!-- SEO: Canonical & Hreflang — injected per language by tools/build.mjs -->
   <!--SEO_LINKS-->
@@ -1078,6 +1105,10 @@ document.getElementById('contactList').addEventListener('click', e=>{
     clearTimeout(link._copyTimer);
     link.classList.add('is-copied');
     link._copyTimer = setTimeout(()=> link.classList.remove('is-copied'), 2000);
+    if (window.umami) umami.track('copy-contact', {
+      kind: link.getAttribute('href').startsWith('mailto:') ? 'email' : 'phone',
+      language: currentLang
+    });
   }).catch(()=>{});
 });
 
@@ -1085,6 +1116,7 @@ document.getElementById('langSwitch').addEventListener('click', e=>{
   const link = e.target.closest('a[data-lang]');
   if (!link) return;
   if (link.dataset.lang === currentLang){ e.preventDefault(); return; }
+  if (window.umami) umami.track('switch-language', { from: currentLang, to: link.dataset.lang });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   // Fade the current page out, then navigate. The incoming page fades itself in
   // via the page-in animation, so the two halves read as one cross-fade.
@@ -1118,6 +1150,7 @@ function observeReveals(){
 
 // Magnetic buttons
 function initMagnetic(){
+  if (window.umami) umami.track('switch-language', { from: currentLang, to: link.dataset.lang });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.matchMedia('(hover: none)').matches) return;
   document.addEventListener('mousemove', (e)=>{
