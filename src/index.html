@@ -1150,7 +1150,6 @@ function observeReveals(){
 
 // Magnetic buttons
 function initMagnetic(){
-  if (window.umami) umami.track('switch-language', { from: currentLang, to: link.dataset.lang });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.matchMedia('(hover: none)').matches) return;
   document.addEventListener('mousemove', (e)=>{
